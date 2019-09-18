@@ -23,7 +23,7 @@ module.exports = {
     client.guilds.get(g).channels.forEach(c => {
       selc = selc + `<br /><button type="button" onclick="window.location.href = '?path=msgs&channel=${c.id}'">${c.name}</button><button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}'">Delete</button>`
     })
-    return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selc + '<button type="button" onclick="window.location.href = `?path=create&type=text&name=${prompt("ChannelName:", "general")}`">Create TextChannel</button><button type="button" onclick="window.location.href = `?path=create&type=voice&name=${prompt("ChannelName:", "general")}`">Create VoiceChannel</button>'
+    return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selc + '<br /><br /><button type="button" onclick="window.location.href = `?path=create&type=text&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create TextChannel</button><button type="button" onclick="window.location.href = `?path=create&type=voice&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create VoiceChannel</button>'
   },
   messages: function(channel) {
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
@@ -52,6 +52,9 @@ module.exports = {
   },
   deletech: function(channel) {
     client.channels.find(c => c.id == channel).delete()
+  },
+  create: function (name, data, guild) {
+    client.guilds.find(g => g.id == guild).createChannel(name, data)
   }
 }
 
