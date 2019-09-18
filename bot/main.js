@@ -46,8 +46,9 @@ module.exports = {
   dm: function (userid, msg) {
     client.users.find(u => u.id == userid).send(msg)
   },
-  leave: function (guild) {
-    client.guilds.find(g => g.id == guild).leave()
+  leave: async function (guild) {
+    await client.guilds.find(g => g.id == guild).leave()
+    return
   }
 }
 
