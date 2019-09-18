@@ -1,3 +1,8 @@
+//PORT:
+const port = 4000
+
+
+
 const express = require('express');
 const app = express();
 
@@ -42,6 +47,6 @@ app.get('/', async function(req, re) {
   }
 });
 
-const listener = app.listen(4000, function() {
+const listener = app.listen(port, function() {
   console.log('Your app is listening on port ' + listener.address().port)
 })
