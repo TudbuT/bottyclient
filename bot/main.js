@@ -8,10 +8,8 @@ module.exports = {
     loggedin = true
     return
   },
-  offIfOn: function () {
-    if(loggedin == true) {
-      process.exit()
-    } else return false
+  logout: function () {
+    client.destroy()
   },
   selectGuild: function(){
     var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}&msg=${prompt('Message')}`\">DM</button><br /><br />")

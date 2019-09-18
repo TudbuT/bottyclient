@@ -1,13 +1,13 @@
 const express = require('express');
 const app = express();
 
-const bot = require("/app/bot/main.js")
+const bot = require("./bot/main.js")
 
 
 app.get('/', async function(req, re) {
   var r = req.query
   if(!r.path) {
-    re.sendFile("/app/viewer/index.html")
+    re.sendFile(__dirname + "/viewer/index.html")
   }
   if(r.path == "run" && r.token && !r.guild) {
     await bot.login(r.token)
@@ -33,8 +33,8 @@ app.get('/', async function(req, re) {
     re.send(bot.selectGuild())
   }
   if(r.logoff == "1") {
-    await re.send('<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><button type="button" onclick="window.location.href = `/`">LogIn (if this does\'nt work, try again in a few secounds)</button>')
-    process.exit()
+    re.sendFile(__dirname + "/viewer/index.html")
+    bot.logout()
   }
 });
 
