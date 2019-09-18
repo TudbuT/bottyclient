@@ -26,7 +26,7 @@ module.exports = {
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selc + '<br /><br /><button type="button" onclick="window.location.href = `?path=create&type=text&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create TextChannel</button><button type="button" onclick="window.location.href = `?path=create&type=voice&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create VoiceChannel</button>'
   },
   messages: function(channel) {
-    var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button>")
+    var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
     var msgs = new String()
     /*client.channels.find(c => c.id == channel).fetchMessages({limit:1}).then(msgs_ => {
       msgs_.forEach(msg => {
@@ -34,7 +34,7 @@ module.exports = {
       })
     }).then(() => {
     */
-    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel + "&msg=${prompt('Message:')}\`\">Send Message</button>"
+    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel + "&msg=${prompt('Message:')}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button>"
     //const x = ht + msgs
     console.log(ht)
     return ht
