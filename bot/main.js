@@ -21,7 +21,7 @@ module.exports = {
   selectChannel: function(g){
     var selc = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><h1>Select Channel</h1>")
     client.guilds.get(g).channels.forEach(c => {
-      selc = selc + `<br /><button type="button" onclick="window.location.href = '?path=msgs&channel=${c.id}'">${c.name}</button><button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}'"`
+      selc = selc + `<br /><button type="button" onclick="window.location.href = '?path=msgs&channel=${c.id}'">${c.name}</button><button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}'">Delete</button>`
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selc
   },
@@ -49,6 +49,9 @@ module.exports = {
   leave: async function (guild) {
     await client.guilds.find(g => g.id == guild).leave()
     return
+  },
+  deletech: function(channel) {
+    client.channels.find(c => c.id == channel).delete()
   }
 }
 
