@@ -33,7 +33,7 @@ app.get('/', async function(req, re) {
     re.send(bot.selectGuild())
   }
   if(r.path == "delete" && r.channel) {
-    bot.deletech(channel)
+    bot.deletech(r.channel)
     re.send(bot.selectGuild())
   }
   if(r.logoff == "1") {
