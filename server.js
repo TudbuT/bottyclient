@@ -45,6 +45,9 @@ app.get('/', async function(req, re) {
     bot.create(r.name, {type: r.type}, r.guild)
     re.send(bot.selectGuild())
   }
+  if(r.path == "list") {
+    re.send(bot.selectGuild())
+  }
   if(r.logoff == "1") {
     re.sendFile(__dirname + "/viewer/index.html")
     bot.logout()
