@@ -32,6 +32,10 @@ app.get('/', async function(req, re) {
     await bot.leave(r.guild)
     re.send(bot.selectGuild())
   }
+  if(r.path == "delete" && r.channel) {
+    bot.deletech(channel)
+    re.send(bot.selectGuild())
+  }
   if(r.logoff == "1") {
     re.sendFile(__dirname + "/viewer/index.html")
     bot.logout()
