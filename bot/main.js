@@ -55,6 +55,9 @@ module.exports = {
   },
   create: function (name, data, guild) {
     client.guilds.find(g => g.id == guild).createChannel(name, data)
+  },
+  getGuild: function(channel) {
+    return client.channels.find(c => c.id == channel).guild.id
   }
 }
 
