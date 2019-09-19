@@ -41,12 +41,15 @@ app.get('/', async function(req, re) {
     bot.deletech(r.channel)
     re.send(bot.selectGuild())
   }
-  if(r.path == "create" && r.name && r.type) {
+  if(r.path == "create" && r.name && r.type && r.guild) {
     bot.create(r.name, {type: r.type}, r.guild)
     re.send(bot.selectGuild())
   }
   if(r.path == "list") {
     re.send(bot.selectGuild())
+  }
+  if(r.path == "clist" && r.channel) {
+    re.send(bot.selectChannel(bot.getGuild(r.channel)))
   }
   if(r.logoff == "1") {
     re.sendFile(__dirname + "/viewer/index.html")
