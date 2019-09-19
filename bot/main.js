@@ -34,7 +34,7 @@ module.exports = {
       })
     }).then(() => {
     */
-    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel + "&msg=${prompt('Message:')}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button>"
+    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel + "&msg=${prompt('Message:')}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button>"
     //const x = ht + msgs
     console.log(ht)
     return ht
