@@ -12,7 +12,7 @@ module.exports = {
     client.destroy()
   },
   selectGuild: function(){
-    var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}&msg=${prompt('Message').replace(\"#\", \"%23\").replace("&", \"%26\")}`\">DM</button><br /><br />")
+    var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}&msg=${prompt('Message').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}`\">DM</button><br /><br />")
     client.guilds.forEach(g => {
       selg = selg + `<br /><button type="button" onclick="window.location.href = '?path=sch&guild=${g.id}'">${g.name}</button>`
     })
