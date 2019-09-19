@@ -12,7 +12,7 @@ module.exports = {
     client.destroy()
   },
   selectGuild: function(){
-    var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}&msg=${prompt('Message').replace("#", "%23").replace("&", "%26")}`\">DM</button><br /><br />")
+    var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}&msg=${prompt('Message').replace(\"#\", \"%23\").replace("&", \"%26\")}`\">DM</button><br /><br />")
     client.guilds.forEach(g => {
       selg = selg + `<br /><button type="button" onclick="window.location.href = '?path=sch&guild=${g.id}'">${g.name}</button>`
     })
@@ -52,7 +52,7 @@ module.exports = {
       })
     }).then(() => {
     */
-    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel + "&msg=${prompt('Message:').replace("#", "%23").replace("&", "%26")}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button>"
+    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel + "&msg=${prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button>"
     //const x = ht + msgs
     return ht
     //})
