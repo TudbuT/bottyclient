@@ -67,8 +67,8 @@ module.exports = {
     await client.channels.find(c => c.id == channel).delete()
     return
   },
-  deleter: async function(role) {
-    await client.roles.find(r => r.id == role).delete()
+  deleter: async function(role, guild) {
+    await client.guilds.find(g => g.id == guild).roles.find(r => r.id == role).delete()
     return
   },
   deletem: async function(member, guild) {
