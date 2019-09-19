@@ -1,5 +1,6 @@
 const Discord = require("discord.js")
 const client = new Discord.Client()
+const starter = require("../addons/starter.js")
 
 var loggedin = new Boolean(false)
 module.exports = {
