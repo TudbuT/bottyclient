@@ -40,6 +40,20 @@ app.get('/', async function(req, re) {
     await bot.deletech(r.channel)
     re.send(bot.selectChannel(r.guild))
   }
+  if(r.path == "deleter" && r.role && r.guild) {
+    await bot.deleter(r.role)
+    re.send(bot.selectChannel(r.guild))
+  }
+  if(r.path == "deletem" && r.member && r.guild) {
+    await bot.deletem(r.member, r.guild)
+    re.send(bot.selectChannel(r.guild))
+  }
+  if(r.path == "ms" && r.guild) {
+    re.send(bot.selectMember(r.guild))
+  }
+  if(r.path == "roles" && r.guild) {
+    re.send(bot.selectRole(r.guild))
+  }
   if(r.path == "create" && r.name && r.type && r.guild) {
     await bot.create(r.name, {type: r.type}, r.guild)
     re.send(bot.selectChannel(r.guild))
