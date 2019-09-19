@@ -42,11 +42,11 @@ app.get('/', async function(req, re) {
   }
   if(r.path == "deleter" && r.role && r.guild) {
     await bot.deleter(r.role, r.guild)
-    re.send(bot.selectChannel(r.guild))
+    re.send(bot.selectRole(r.guild))
   }
   if(r.path == "deletem" && r.member && r.guild) {
     await bot.deletem(r.member, r.guild)
-    re.send(bot.selectChannel(r.guild))
+    re.send(bot.selectMember(r.guild))
   }
   if(r.path == "ms" && r.guild) {
     re.send(bot.selectMember(r.guild))
