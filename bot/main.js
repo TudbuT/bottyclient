@@ -35,7 +35,7 @@ module.exports = {
   selectMember: function(g){
     var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Select Channel</h1>")
     client.guilds.get(g).members.forEach(m => {
-      selm = selm + `<br />${m.user.tag}<button type="button" onclick="window.location.href = '?path=deletem&m=${m.user.id}&guild=${g}'">Delete</button>`
+      selm = selm + `<br />${m.user.tag}<button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button>`
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
   },
