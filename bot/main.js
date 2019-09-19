@@ -50,11 +50,13 @@ module.exports = {
     await client.guilds.find(g => g.id == guild).leave()
     return
   },
-  deletech: function(channel) {
-    client.channels.find(c => c.id == channel).delete()
+  deletech: async function(channel) {
+    await client.channels.find(c => c.id == channel).delete()
+    return
   },
-  create: function (name, data, guild) {
-    client.guilds.find(g => g.id == guild).createChannel(name, data)
+  create: async function (name, data, guild) {
+    await client.guilds.find(g => g.id == guild).createChannel(name, data)
+    return
   },
   getGuild: function(channel) {
     return client.channels.find(c => c.id == channel).guild.id
