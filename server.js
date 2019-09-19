@@ -23,11 +23,10 @@ app.get('/', async function(req, re) {
   }
   if(r.path == "msgs" && r.channel) {
     re.send(await bot.messages(r.channel))
-    console.log(bot.messages(r.channel))
   }
   if(r.path == "send" && r.channel) {
     bot.send(r.channel, r.msg)
-    re.send(bot.selectChannel(bot.getGuild(r.channel)))
+    re.send(bot.messages(r.channel))
   }
   if(r.path == "dm" && r.dm && r.msg) {
     bot.dm(r.dm, r.msg)
