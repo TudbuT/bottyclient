@@ -37,13 +37,13 @@ app.get('/', async function(req, re) {
     await bot.leave(r.guild)
     re.send(bot.selectGuild())
   }
-  if(r.path == "delete" && r.channel) {
+  if(r.path == "delete" && r.channel && r.guild) {
     bot.deletech(r.channel)
-    re.send(bot.selectGuild())
+    re.send(bot.selectChannel(r.guild))
   }
   if(r.path == "create" && r.name && r.type && r.guild) {
     bot.create(r.name, {type: r.type}, r.guild)
-    re.send(bot.selectGuild())
+    re.send(bot.selectChannel(r.guild))
   }
   if(r.path == "list") {
     re.send(bot.selectGuild())
