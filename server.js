@@ -41,7 +41,7 @@ app.get('/', async function(req, re) {
     re.send(bot.selectChannel(r.guild))
   }
   if(r.path == "deleter" && r.role && r.guild) {
-    await bot.deleter(r.role)
+    await bot.deleter(r.role, r.guild)
     re.send(bot.selectChannel(r.guild))
   }
   if(r.path == "deletem" && r.member && r.guild) {
