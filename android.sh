@@ -1,7 +1,5 @@
-apt-get install npm
-apt-get install nodejs
-npm install n
-n stable
+pkg install npm
+pkg install nodejs
 npm install discord.js
 npm install express
 git pull https://github.com/tudbut/bottyclient.git
