@@ -71,5 +71,5 @@ app.get('/', async function(req, re) {
 });
 
 const listener = app.listen(port, function() {
-  console.log('Your app is listening on port ' + listener.address().port)
+  console.log('Your app is listening on port ' + listener.address())
 })
