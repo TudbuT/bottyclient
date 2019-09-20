@@ -7,5 +7,5 @@ sudo npm install -g npm
 sudo npm install discord.js
 sudo npm install express
 git pull https://github.com/tudbut/bottyclient.git
-echo ######### All libraries should be installed now - Starting! #########
+echo ××===== All libraries should be installed now - Starting! =====××
 node server.js
