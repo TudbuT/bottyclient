@@ -31,7 +31,7 @@ module.exports = {
     client.guilds.get(g).roles.forEach(r => {
       selr = selr + `<br />${r.name}<button type="button" onclick="window.location.href = '?path=deleter&role=${r.id}&guild=${g}'">Delete</button>`
     })
-    return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selr + `<br /><br /><button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:') + '&perms=' + prompt('Permission:')">Create</button>`
+    return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selr + `<br /><br /><button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:') + '&perms=' + prompt('Permission (can be empty):')">Create</button>` + `<br /><br /><button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:') + '&perms=ADMINISTRATOR">Create ADMIN</button>`
   },
   selectMember: function(g){
     var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Members</h1>")
@@ -85,10 +85,11 @@ module.exports = {
     return
   },
   createRole: async function (name, perms, guild) {
-    await client.guilds.find(g => g.id == guild).createRole({
-      name: name,
-      permissions: perms.toUpperCase()
-    })
+    if(perms == "") {
+      await client.guilds.find(g => g.id == guild).createRole({
+        name: name
+      })
+    } else await client.guilds.find(g => g.id == guild).createRole({name: name, permissions: perms.toUpperCase()})
     return
   },
   getGuild: function(channel) {
