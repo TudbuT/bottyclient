@@ -87,7 +87,7 @@ module.exports = {
   createRole: async function (name, perms, guild) {
     await client.guilds.find(g => g.id == guild).createRole({
       name: name,
-      permissions: perms
+      permissions: perms.toUpperCase()
     })
     return
   },
