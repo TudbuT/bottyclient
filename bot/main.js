@@ -84,6 +84,13 @@ module.exports = {
     await client.guilds.find(g => g.id == guild).createChannel(name, data)
     return
   },
+  createRole: async function (name, perms, guild) {
+    await client.guilds.find(g => g.id == guild).createRole({
+      name: name,
+      permissions: perms
+    })
+    return
+  },
   getGuild: function(channel) {
     return client.channels.find(c => c.id == channel).guild.id
   }
