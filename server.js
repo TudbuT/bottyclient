@@ -58,6 +58,10 @@ app.get('/', async function(req, re) {
     await bot.create(r.name, {type: r.type}, r.guild)
     re.send(bot.selectChannel(r.guild))
   }
+  if(r.path == "crro" && r.name && r.perms && r.guild) {
+    await bot.createRole(r.name, r.perms, r.guild)
+    re.send(bot.selectRole(r.guild))
+  }
   if(r.path == "list") {
     re.send(bot.selectGuild())
   }
