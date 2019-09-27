@@ -55,7 +55,7 @@ module.exports = {
     return ht
   },
   delM: async function(message, channel) {
-    await client.channels.find(c => c.id == channel).fetchMessages({limit: 30}).then(m => m.find(_m => _m.id == message).delete(50))
+    await client.channels.find(c => c.id == channel).fetchMessages({limit: 100}).then(m => m.find(_m => _m.id == message).delete(50))
     return await wait()
   },
   send: async function (channel, msg) {
@@ -104,7 +104,7 @@ client.on('ready', () => {
 
 async function gms (channel) {
       var x = "<br /><br /><br />Messages: <br /><br />"
-      await client.channels.find(c => c.id == channel).fetchMessages({limit: 20}).then(async ms => {
+      await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
           x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
           remote = x
