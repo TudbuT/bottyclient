@@ -98,14 +98,14 @@ client.on('ready', () => {
   console.log("Ready.")
 })
 
-var gms = function (channel) {
+function gms (channel) {
       var x = "<br /><br /><br />Messages: <br /><br />"
       client.channels.find(c => c.id == channel).fetchMessages({limit: 10}).then(ms => {
         ms.forEach(m => {
           x = x + "<br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />")
           remote = x
         })
-        //console.log(remote)
+        console.log(remote)
         return remote
       })
     }
