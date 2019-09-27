@@ -133,7 +133,7 @@ async function dmgms (dm) {
       await client.users.find(u => u.id == dm).createDM().then(async c => {
       await c.fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
-          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button></br>
+          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button></br>`
           remote = x
         })
         if(remote) {
