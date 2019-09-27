@@ -126,7 +126,8 @@ async function gms (channel) {
     }
 async function dmgms (dm) {
       var x = "<br /><br /><br />Messages: <br /><br />"
-      await client.users.find(u => u.id == dm).createDM().fetchMessages({limit: 50}).then(async ms => {
+      await client.users.find(u => u.id == dm).createDM().then(c => {
+      c.fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
           x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />")
           remote = x
@@ -135,6 +136,7 @@ async function dmgms (dm) {
           await wait()
         }
         return remote
+      })
       })
     }
 
