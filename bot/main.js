@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 const client = new Discord.Client()
 const starter = require("../addons/starter.js")
+var remote
 
 var loggedin = new Boolean(false)
 module.exports = {
@@ -100,18 +101,10 @@ var gms = function (channel) {
       client.channels.find(c => c.id == channel).fetchMessages({limit: 10}).then(ms => {
         ms.forEach(m => {
           x = x + "<br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />")
-          x.Wremote()
+          remote = x
         })
-        console.log(Gremote())
-        return Gremote
+        console.log(remote)
+        return remote
       })
     }
 
-var _remote
-function Wremote () {
-  _remote = this
-}
-
-function Gremote () {
-  return _remote
-}
