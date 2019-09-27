@@ -55,7 +55,7 @@ module.exports = {
     return ht
   },
   delM: async function(message, channel) {
-    await client.channels.find(c => c.id == channel).fetchMessages({limit: 30}).find(m => m.id == message).delete(1000)
+    await client.channels.find(c => c.id == channel).fetchMessages({limit: 30}).then(m => m.find(_m => _m.id == message).delete(1000))
     return await wait()
   },
   send: async function (channel, msg) {
