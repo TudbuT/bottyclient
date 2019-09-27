@@ -71,7 +71,7 @@ module.exports = {
     return await wait()
   },
   senddm: async function (dm, msg) {
-    await client.users.find(u => u.id == userid).send(msg)
+    await client.users.find(u => u.id == dm).send(msg)
     return await wait()
   },
   leave: async function (guild) {
