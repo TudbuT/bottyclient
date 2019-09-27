@@ -98,7 +98,7 @@ client.on('ready', () => {
   console.log("Ready.")
 })
 
-async function gms (channel) {
+function gms (channel) {
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 10}).then(ms => {
         ms.forEach(m => {
