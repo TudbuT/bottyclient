@@ -106,7 +106,11 @@ async function gms (channel) {
           remote = x
         })
         await console.log(remote)
-        await return remote
+        if(remote) {
+          await wait()
+        }
+        return remote
       })
     }
 
+function wait () {}
