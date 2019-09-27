@@ -58,6 +58,10 @@ app.get('/', async function(req, re) {
     await bot.delM(r.message, r.channel)
     re.send(await bot.messages(r.channel))
   }
+  if(r.path == "delMdm" && r.dm && r.message) {
+    await bot.delMdm(r.message, r.dm)
+    re.send(await bot.dmmessages(r.dm))
+  }
   if(r.path == "roles" && r.guild) {
     re.send(bot.selectRole(r.guild))
   }
