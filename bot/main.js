@@ -106,7 +106,7 @@ async function gms (channel) {
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 20}).then(async ms => {
         await ms.forEach(m => {
-          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + `<button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&message=${m.id}'">Delete</button></br>`
+          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + `<button type="button" onclick="window.location.href = '?path=delM&channel=${c.id}&message=${m.id}'">Delete</button></br>`
           remote = x
         })
         if(remote) {
