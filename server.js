@@ -25,7 +25,7 @@ app.get('/', async function(req, re) {
     re.send(await bot.messages(r.channel))
   }
   if(r.path == "send" && r.channel) {
-    bot.send(r.channel, r.msg)
+    await bot.send(r.channel, r.msg)
     re.send(bot.messages(r.channel))
   }
   if(r.path == "dm" && r.dm && r.msg) {
