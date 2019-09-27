@@ -54,6 +54,14 @@ module.exports = {
     await wait()
     return ht
   },
+  cmessages: async function(channel) {
+    var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
+    await cgms(channel)
+    var msgs = remote
+    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel.id + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=msgs&channel=" + channel.id + "\`\">Reload</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button>" + msgs
+    await wait()
+    return ht
+  },
   delM: async function(message, channel) {
     await client.channels.find(c => c.id == channel).fetchMessages({limit: 100}).then(m => m.find(_m => _m.id == message).delete(50))
     return await wait()
@@ -105,6 +113,19 @@ client.on('ready', () => {
 async function gms (channel) {
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
+        await ms.forEach(m => {
+          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
+          remote = x
+        })
+        if(remote) {
+          await wait()
+        }
+        return remote
+      })
+    }
+async function cgms (channel) {
+      var x = "<br /><br /><br />Messages: <br /><br />"
+      await channel.fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
           x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
           remote = x
