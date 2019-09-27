@@ -96,7 +96,7 @@ client.on('ready', () => {
 })
 
 var gms = function (channel) {
-      var x = new String("<br /><br /><br />Messages: <br /><br />")
+      var x = "<br /><br /><br />Messages: <br /><br />"
       client.channels.find(c => c.id == channel).fetchMessages({limit: 10}).then(ms => {
         ms.forEach(m => {
           x = x + "<br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />")
