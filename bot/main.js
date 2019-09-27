@@ -51,6 +51,7 @@ module.exports = {
       client.channels.find(c => c.id == channel).fetchMessages({max: 10}).forEach(m => {
         x = x + "<br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />")
       })
+      console.log(x)
       return x
     })
     
