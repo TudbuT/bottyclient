@@ -101,9 +101,9 @@ client.on('ready', () => {
 async function gms (channel) {
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 10}).then(async ms => {
-        ms.forEach(async m => {
+        await ms.forEach(m => {
           x = x + "<br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />")
-          await remote = x
+          remote = x
         })
         await console.log(remote)
         await return remote
