@@ -63,6 +63,7 @@ module.exports = {
     return await wait()
   },
   fetchdm: function (userid) {
+    if(!client.users.find(u => u.id == userid).dmChannel) client.users.find(u => u.id == userid).createDM()
     return client.users.find(u => u.id == userid).dmChannel.id
   },
   senddm: function (userid, message) {
