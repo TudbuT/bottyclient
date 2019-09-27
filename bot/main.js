@@ -14,7 +14,7 @@ module.exports = {
     client.destroy()
   },
   selectGuild: function(){
-    var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}&msg=${x()}`\">DM</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><br /><br />")
+    var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><br /><br />")
     client.guilds.forEach(g => {
       selg = selg + `<br /><button type="button" onclick="window.location.href = '?path=sch&guild=${g.id}'">${g.name}</button>`
     })
@@ -62,8 +62,11 @@ module.exports = {
     await client.channels.find(c => c.id == channel).send(msg)
     return await wait()
   },
-  dm: function (userid, msg) {
-    client.users.find(u => u.id == userid).send(msg)
+  fetchdm: function (userid) {
+    return client.users.find(u => u.id == userid).dmChannel.id
+  },
+  senddm: function (userid, message) {
+    client.users.find(u => u.id == userid).send(message)
   },
   leave: async function (guild) {
     await client.guilds.find(g => g.id == guild).leave()
