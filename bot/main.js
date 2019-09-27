@@ -100,10 +100,18 @@ var gms = function (channel) {
       client.channels.find(c => c.id == channel).fetchMessages({limit: 10}).then(ms => {
         ms.forEach(m => {
           x = x + "<br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />")
-          console.log(m.content)
-          console.log(x)
+          x.Wremote()
         })
-        console.log(x)
-        return x
+        console.log(Gremote())
+        return Gremote
       })
     }
+
+var _remote
+function Wremote () {
+  _remote = this
+}
+
+function Gremote () {
+  return _remote
+}
