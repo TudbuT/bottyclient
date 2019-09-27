@@ -100,6 +100,8 @@ var gms = function (channel) {
       client.channels.find(c => c.id == channel).fetchMessages({limit: 10}).then(ms => {
         ms.forEach(m => {
           x = x + "<br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />")
+          console.log(m.content)
+          console.log(x)
         })
       })
       console.log(x)
