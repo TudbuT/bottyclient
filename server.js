@@ -51,6 +51,10 @@ app.get('/', async function(req, re) {
   if(r.path == "ms" && r.guild) {
     re.send(bot.selectMember(r.guild))
   }
+  if(r.path == "delM" && r.channel && r.message) {
+    await bot.delM(r.message, r.channel)
+    re.send(await bot.messages(r.channel))
+  }
   if(r.path == "roles" && r.guild) {
     re.send(bot.selectRole(r.guild))
   }
