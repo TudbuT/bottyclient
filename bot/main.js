@@ -53,8 +53,9 @@ module.exports = {
     
     return ht
   },
-  send: function (channel, msg) {
-    client.channels.find(c => c.id == channel).send(msg)
+  send: async function (channel, msg) {
+    await client.channels.find(c => c.id == channel).send(msg)
+    return
   },
   dm: function (userid, msg) {
     client.users.find(u => u.id == userid).send(msg)
