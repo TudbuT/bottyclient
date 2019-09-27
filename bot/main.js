@@ -70,9 +70,6 @@ module.exports = {
     await client.channels.find(c => c.id == channel).send(msg)
     return await wait()
   },
-  fetchdm: function (userid) {
-    client.users.find(u => u.id == userid).createDM().then(x_ => return x_)
-  },
   senddm: async function (dm, msg) {
     await client.users.find(u => u.id == userid).send(msg)
     return await wait()
