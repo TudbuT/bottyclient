@@ -103,7 +103,7 @@ var gms = function (channel) {
           console.log(m.content)
           console.log(x)
         })
+        console.log(x)
+        return x
       })
-      console.log(x)
-      return x
     }
