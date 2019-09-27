@@ -98,15 +98,15 @@ client.on('ready', () => {
   console.log("Ready.")
 })
 
-function gms (channel) {
+async function gms (channel) {
       var x = "<br /><br /><br />Messages: <br /><br />"
-      client.channels.find(c => c.id == channel).fetchMessages({limit: 10}).then(ms => {
+      await client.channels.find(c => c.id == channel).fetchMessages({limit: 10}).then(ms => {
         ms.forEach(m => {
-          x = x + "<br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />")
-          remote = x
+          await x = x + "<br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />")
+          await remote = x
         })
-        console.log(remote)
-        return remote
+        await console.log(remote)
+        await return remote
       })
     }
 
