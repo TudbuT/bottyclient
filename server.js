@@ -28,8 +28,12 @@ app.get('/', async function(req, re) {
     await bot.send(r.channel, r.msg)
     re.send(await bot.messages(r.channel))
   }
+  if(r.path == "sdm" && r.user && r.message) {
+    bot.senddm(r.user, r.message)
+    re.send(await bot.msgsdm(r.user))
+  }
   if(r.path == "dm" && r.dm) {
-    re.send(bot.messages(bot.fetchdm(r.dm)))
+    re.send(await bot.msgsdm(r.dm))
   }
   if(r.path == "leave" && r.guild) {
     await bot.leave(r.guild)
