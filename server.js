@@ -2,9 +2,11 @@
 const port = 4000
 
 
+//Define style
 const style = "<style>body {background-color: #2C2F33; color: #CCCCCC; font-family: Whitney, Arial} button {background-color: #99AAB5; color: #FFF; height: 2em; border-radius: 8px; border: 1px solid #2C2F33; cursor: pointer;}</style>"
 const b = ""
 
+//Start server
 const express = require('express');
 const app = express();
 
@@ -12,6 +14,9 @@ const bot = require("./bot/main.js")
 
 
 app.get('/', async function(req, re) {
+  /////////////////////////////////////////////
+  // listen for things to send to the client //
+  /////////////////////////////////////////////
   var r = req.query
   if(!r.path) {
     re.sendFile(__dirname + "/viewer/index.html")
@@ -87,6 +92,6 @@ app.get('/', async function(req, re) {
   }
 });
 
-const listener = app.listen(port, function() {
+const listener = app.listen(port, function() { // open server
   console.log(`Go to any browser on THIS computer and open http://localhost:${port}`)
 })
