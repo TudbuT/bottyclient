@@ -36,7 +36,6 @@ app.get('/', async function(req, re) {
   if(r.path == "senddm" && r.dm) {
     await bot.senddm(r.dm, r.msg)
     re.send(await bot.dmmessages(r.dm) + style)
-    re.send(await bot.messages(r.channel))
   }
   if(r.path == "send" && r.channel) {
     await bot.send(r.channel, r.msg)
