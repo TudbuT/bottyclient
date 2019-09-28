@@ -5,6 +5,9 @@ var remote = "ERROR"
 
 var loggedin = new Boolean(false)
 module.exports = {
+  ///////////////////////////////////////////////
+  // Where the client listens for things to do //
+  ///////////////////////////////////////////////
   login: async function (token) {
     await client.login(token)
     loggedin = true
@@ -117,7 +120,7 @@ client.on('ready', () => {
   console.log("Ready.")
 })
 
-async function gms (channel) {
+async function gms (channel) { // return list of messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
@@ -130,7 +133,7 @@ async function gms (channel) {
         return remote
       })
     }
-async function dmgms (dm) {
+async function dmgms (dm) { // return list of dm messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.users.find(u => u.id == dm).createDM().then(async c => {
       await c.fetchMessages({limit: 50}).then(async ms => {
@@ -146,4 +149,4 @@ async function dmgms (dm) {
       })
     }
 
-function wait () {}
+function wait () {} // just for timings
