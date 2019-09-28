@@ -72,10 +72,12 @@ module.exports = {
   },
   send: async function (channel, msg) {
     await client.channels.find(c => c.id == channel).send(msg)
+    console.log("Sent")
     return await wait()
   },
   senddm: async function (dm, msg) {
     await client.users.find(u => u.id == dm).send(msg)
+    console.log("Sent DM")
     return await wait()
   },
   leave: async function (guild) {
