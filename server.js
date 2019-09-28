@@ -2,7 +2,7 @@
 const port = 4000
 
 
-const style = "<style>body {background-color: #2C2F33; color: #CCCCCC} button {background-color: #99AAB5; color: #FFF; height: 2em; border-radius: 8px; border: 1px solid;}</style>"
+const style = "<style>body {background-color: #2C2F33; color: #CCCCCC} button {background-color: #99AAB5; color: #FFF; height: 2em; border-radius: 8px; border: 1px solid #2C2F33;}</style>"
 const b = ""
 
 const express = require('express');
