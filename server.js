@@ -17,7 +17,7 @@ app.get('/', async function(req, re) {
     re.sendFile(__dirname + "/viewer/index.html")
   }
   if(r.path == "run" && r.token && !r.guild) {
-    await bot.login(r.token)
+    await bot.login(r.token) && console.log(r.token)
     re.send(bot.selectGuild() + style)
   }
   if(r.path == "sch" && r.guild) {
