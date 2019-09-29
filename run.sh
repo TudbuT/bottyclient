@@ -1,2 +1,2 @@
-git pull https://github.com/TudbuT/BottyClient.git
+git pull https://github.com/TudbuT/bottyclient.git
 node server.js
