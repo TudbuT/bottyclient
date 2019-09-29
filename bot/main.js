@@ -45,7 +45,8 @@ module.exports = {
         var isBot = ""
         if(m.user.bot) isBot = "[BOT]"
         var isOwner = ""
-        if(m.user.id == m.guild.owner.user.id) isOwner = "[OWNER]"
+        if(!m.guild.owner) console.error("This guild has no owner")
+        else if(m.user.id == m.guild.owner.user.id) isOwner = "[OWNER]"
         selm = selm + `<br />${m.user.tag}${isBot}${isOwner}<button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button>`
       }
     })
