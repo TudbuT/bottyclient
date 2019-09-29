@@ -1,3 +1,4 @@
-git reset --hard
-git merge -m get-wfix
-git pull https://github.com/TudbuT/bottyclient
+cd ..
+rm -r -f bottyclient/
+git clone https://github.com/TudbuT/bottyclient
+cd bottyclient
