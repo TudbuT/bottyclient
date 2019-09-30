@@ -53,7 +53,7 @@ module.exports = {
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
   },
   messages: async function(channel) {
-    remote = "NO MESSAGES FOUND"
+    remote = "ERR 2 (NO MESSAGES FOUND)"
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
     await gms(channel)
     var msgs = remote
@@ -62,7 +62,7 @@ module.exports = {
     return ht
   },
   dmmessages: async function(dm) {
-    remote = "NO MESSAGES FOUND"
+    remote = "ERR 2 (NO MESSAGES FOUND)"
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
     await dmgms(dm)
     var msgs = remote
