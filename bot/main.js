@@ -17,7 +17,7 @@ module.exports = {
     client.destroy()
   },
   selectGuild: function(){
-    var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><br /><br />")
+    var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=dmlist`\">DMlist</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><br /><br />")
     client.guilds.forEach(g => {
       selg = selg + `<br /><button type="button" onclick="window.location.href = '?path=sch&guild=${g.id}'">${g.name}</button>`
     })
@@ -48,6 +48,17 @@ module.exports = {
         if(!m.guild.owner) console.error("This guild has no owner")
         else if(m.user.id == m.guild.owner.user.id) isOwner = "[OWNER]"
         selm = selm + `<br />${m.user.tag}${isBot}${isOwner}<button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button>`
+      }
+    })
+    return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
+  },
+  dmlist: function(){
+    var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Users</h1>")
+    client.users.forEach(m => {
+      if(m) {
+        var isBot = ""
+        if(m.bot) isBot = "[BOT]"
+        selm = selm + `<br /><button type="button" onclick="window.location.href = '?dm&dm=${m.id}'">${m.tag}${isBot}</button>`
       }
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
