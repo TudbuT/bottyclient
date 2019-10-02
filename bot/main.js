@@ -81,6 +81,15 @@ module.exports = {
     await wait()
     return ht
   },
+  dmlmessages: async function(dm) {
+    remote = "ERR 2 (NO MESSAGES FOUND)"
+    var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
+    await dmgms(dm)
+    var msgs = remote
+    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=senddm&dm=" + dm + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=dml&dm=" + dm + "\`\">Reload</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=dm'\">Back to list</button>" + msgs
+    await wait()
+    return ht
+  },
   delM: async function(message, channel) {
     await client.channels.find(c => c.id == channel).fetchMessages({limit: 100}).then(m => m.find(_m => _m.id == message).delete(50))
     return await wait()
