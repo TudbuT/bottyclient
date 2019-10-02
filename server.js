@@ -47,6 +47,10 @@ app.get('/', async function(req, re) {
     await bot.senddm(r.dm, r.msg)
     re.send(await bot.dmmessages(r.dm) + style)
   }
+  if(r.path == "senddml" && r.dm) {
+    await bot.senddm(r.dm, r.msg)
+    re.send(await bot.dmlmessages(r.dm) + style)
+  }
   if(r.path == "leave" && r.guild) {
     await bot.leave(r.guild)
     re.send(bot.selectGuild() + style)
