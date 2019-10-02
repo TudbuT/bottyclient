@@ -58,7 +58,7 @@ module.exports = {
       if(m) {
         var isBot = ""
         if(m.bot) isBot = "[BOT]"
-        selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dm&dm=${m.id}'">${m.tag}${isBot}</button>`
+        selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.id}'">${m.tag}${isBot}</button>`
       }
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
