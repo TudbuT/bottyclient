@@ -37,6 +37,9 @@ app.get('/', async function(req, re) {
   if(r.path == "dm" && r.dm) {
     re.send(await bot.dmmessages(r.dm) + style)
   }
+  if(r.path == "dmlist") {
+    re.send(await bot.dmlist())
+  }
   if(r.path == "senddm" && r.dm) {
     await bot.senddm(r.dm, r.msg)
     re.send(await bot.dmmessages(r.dm) + style)
