@@ -109,7 +109,7 @@ module.exports = {
     var send = 1
     cmdr = ""
     if(msg.startsWith("/bc")) send = 0;
-    if(msg == "/bc.id") cmdr = dm;
+    if(msg == "/bc.i") cmdr = `<br />ID: ${dm}<br />Tag: ${await client.users.find(u => u.id == dm).tag}`;
     if(send == 1) await client.users.find(u => u.id == dm).send(msg)
     console.log("Sent DM")
     return await wait()
