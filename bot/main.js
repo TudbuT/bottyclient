@@ -108,7 +108,7 @@ module.exports = {
   senddm: async function (dm, msg) {
     var send = 1
     cmdr = ""
-    if(msg == "/bc.id") cmdr = dm && send = 0
+    if(msg == "/bc.id") cmdr = dm; send = 0;
     if(send == 1) await client.users.find(u => u.id == dm).send(msg)
     console.log("Sent DM")
     return await wait()
