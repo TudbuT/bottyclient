@@ -52,7 +52,7 @@ app.get('/', async function(req, re) {
   }
   if(r.path == "lvc" && r.channel) {
     await bot.lvc(r.channel)
-    re.send(bot.selectChannel(bot.fetchGuild(r.channel)))
+    re.send(await bot.selectChannel(bot.fetchGuild(r.channel)) + style)
   }
   if(r.path == "senddml" && r.dm) {
     await bot.senddm(r.dm, r.msg)
@@ -100,7 +100,7 @@ app.get('/', async function(req, re) {
     re.send(bot.selectGuild() + style)
   }
   if(r.path == "clist" && r.channel) {
-    re.send(bot.selectChannel(bot.getGuild(r.channel)) + style)
+    re.send(bot.selectChannel(bot.fetchGuild(r.channel)) + style)
   }
   if(r.logoff == "1") {
     re.sendFile(__dirname + "/viewer/index.html")
