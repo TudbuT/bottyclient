@@ -1,6 +1,7 @@
 
 sudo apt-get install npm
 sudo apt-get install nodejs
+sudo apt-get install ffmpeg
 sudo npm install n
 sudo n stable
 sudo npm install -g npm
