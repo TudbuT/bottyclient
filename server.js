@@ -47,6 +47,13 @@ app.get('/', async function(req, re) {
     await bot.senddm(r.dm, r.msg)
     re.send(await bot.dmmessages(r.dm) + style)
   }
+  if(r.path == "jvc" && r.channel) {
+    re.send(await bot.jvc(r.channel))
+  }
+  if(r.path == "lvc" && r.channel) {
+    await bot.lvc(r.channel)
+    re.send(bot.selectChannel(bot.fetchGuild(r.channel)))
+  }
   if(r.path == "senddml" && r.dm) {
     await bot.senddm(r.dm, r.msg)
     re.send(await bot.dmlmessages(r.dm) + style)
