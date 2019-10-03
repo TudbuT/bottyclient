@@ -156,7 +156,7 @@ module.exports = {
     } else await client.guilds.find(g => g.id == guild).createRole({name: name, permissions: perms.toUpperCase()})
     return
   },
-  getGuild: function(channel) {
+  fetchGuild: function(channel) {
     return client.channels.find(c => c.id == channel).guild.id
   }
 }
