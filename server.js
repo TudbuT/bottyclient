@@ -48,7 +48,7 @@ app.get('/', async function(req, re) {
     re.send(await bot.dmmessages(r.dm) + style)
   }
   if(r.path == "jvc" && r.channel) {
-    re.send(await bot.jvc(r.channel))
+    re.send(await bot.jvc(r.channel) + style)
   }
   if(r.path == "lvc" && r.channel) {
     await bot.lvc(r.channel)
