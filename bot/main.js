@@ -63,10 +63,9 @@ module.exports = {
     return ht
   },
   pvc: async function (channel, video) {
-    client.channels.find(c => c.id == channel).join().then(c => {
-      const ytdl = require("ytdl-core")
-      c.play(ytdl(video, {filter: 'audioonly'}))
-    })
+    var c = client.channels.find(c => c.id == channel).join()
+    const ytdl = require("ytdl-core")
+    c.play(ytdl(video, {filter: 'audioonly'}))
   },
   lvc: function (channel) {
     client.channels.find(c => c.id == channel).leave()
