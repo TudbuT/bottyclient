@@ -69,6 +69,11 @@ module.exports = {
     if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
     if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
     cc.setVolume(0.08)
+    cc.on('finish', () => {
+      if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
+      if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
+      cc.setVolume(0.08)
+    })
   },
   lvc: function (channel) {
     client.channels.find(c => c.id == channel).leave()
