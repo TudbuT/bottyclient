@@ -66,15 +66,26 @@ module.exports = {
     var c = await client.channels.find(c => c.id == channel).join()
     const ytdl = require("ytdl-core")
     var cc
+    var xcc
     if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
     if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
     cc.setVolume(0.08)
     cc.on('end', () => {
+      if(c.play) xcc = c.play(ytdl(video, {filter: 'audioonly'}))
+      if(c.playStream) xcc = c.playStream(ytdl(video, {filter: 'audioonly'}))
+      xcc.setVolume(0.08)
+    })
+    cc.on('finish', () => {
+      if(c.play) xcc = c.play(ytdl(video, {filter: 'audioonly'}))
+      if(c.playStream) xcc = c.playStream(ytdl(video, {filter: 'audioonly'}))
+      xcc.setVolume(0.08)
+    })
+    xcc.on('end', () => {
       if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
       if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
       cc.setVolume(0.08)
     })
-    cc.on('finish', () => {
+    xcc.on('finish', () => {
       if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
       if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
       cc.setVolume(0.08)
