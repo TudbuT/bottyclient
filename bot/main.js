@@ -77,7 +77,7 @@ module.exports = {
     } else {
       if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
       if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
-      cc.setVolume(0.08)
+      cc.setVolume(0.12)
     }
     cc.on('end', async () => {
       cc.destroy()
