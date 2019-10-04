@@ -1,5 +1,5 @@
 const Discord = require("discord.js")
-const client = new Discord.Client()
+var client = new Discord.Client()
 const starter = require("../addons/starter.js")
 var remote = "NO MESSAGES FOUND"
 
@@ -16,7 +16,8 @@ module.exports = {
     return
   },
   logout: function () {
-    client.destroy()
+    c2 = new Discord.Client()
+    client = c2
   },
   selectGuild: function(){
     var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=dmlist`\">DMlist</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><br /><br />" + client.guilds.size + "<br />")
