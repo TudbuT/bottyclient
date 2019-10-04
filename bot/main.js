@@ -72,15 +72,11 @@ module.exports = {
     cc.setVolume(0.08)
     cc.on('end', () => {
       cc.destroy()
-      if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
-      if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
-      cc.setVolume(0.08)
+      module.exports.pvc(channel, video)
     })
     cc.on('finish', () => {
       cc.destroy()
-      if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
-      if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
-      cc.setVolume(0.08)
+      module.exports.pvc(channel, video)
     })
   },
   lvc: function (channel) {
