@@ -74,11 +74,11 @@ module.exports = {
     if(video == "radio") {
       if(c.play) cc = c.play("http://stream.trap.fm:6006")
       if(c.playStream) cc = c.playStream("http://stream.trap.fm:6006")
-      cc.setVolume(0.5)
+      cc.setVolume(0.3)
     } else {
       if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
       if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
-      cc.setVolume(0.12)
+      cc.setVolume(0.1)
     }
     cc.on('end', async () => {
       cc.destroy()
