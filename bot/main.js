@@ -63,7 +63,7 @@ module.exports = {
     return ht
   },
   pvc: async function (channel, video) {
-    var c = client.channels.find(c => c.id == channel).join()
+    var c = await client.channels.find(c => c.id == channel).join()
     const ytdl = require("ytdl-core")
     c.play(ytdl(video, {filter: 'audioonly'}))
   },
