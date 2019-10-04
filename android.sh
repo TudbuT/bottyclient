@@ -4,7 +4,7 @@ apt-get install ffmpeg
 npm install n
 npm install discord.js
 npm install express
-npm install node-opus
+npm install opusscript
 npm install ytdl-core
 git pull https://github.com/tudbut/bottyclient.git
 echo ℹ️ All libraries should be installed now - Starting! ℹ️
