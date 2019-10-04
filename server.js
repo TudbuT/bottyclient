@@ -3,7 +3,7 @@ const port = 4000
 
 
 //Define style and title
-const version = "bottyclient.public.release 0.8.7.0a"
+const version = "bottyclient.public.release 0.8.7.0b"
 const v = version + "<br /><br />"
 const style = "<title>BottyClient by TudbuT#2624 (" + version + ")</title><style>body {background-color: #2C2F33; color: #CCCCCC; font-family: Whitney, Arial} button {background-color: #99AAB5; color: #FFF; height: 2em; border-radius: 8px; border: 1px solid #2C2F33; cursor: pointer;}</style>"
 
@@ -54,7 +54,7 @@ app.get('/', async function(req, re) {
   }
   if(r.path == "pvc" && r.channel && r.video) {
     bot.pvc(r.channel, r.video)
-    re.send(v + await bot.vc(r.channel) + style)
+    re.send(v + await bot.jvc(r.channel) + style)
   }
   if(r.path == "lvc" && r.channel) {
     await bot.lvc(r.channel)
