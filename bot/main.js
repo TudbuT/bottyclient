@@ -74,11 +74,11 @@ module.exports = {
     if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
     cc.setVolume(0.08)
     cc.on('end', () => {
-      cc = undefined
+      cc = await undefined
       play(channel, video)
     })
     cc.on('finish', () => {
-      cc = undefined
+      cc = await undefined
       play(channel, video)
     })
     }
