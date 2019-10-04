@@ -52,6 +52,10 @@ app.get('/', async function(req, re) {
   if(r.path == "jvc" && r.channel) {
     re.send(v + await bot.jvc(r.channel) + style)
   }
+  if(r.path == "pvc" && r.channel && r.video) {
+    bot.pvc(r.channel, r.video)
+    re.send(v + await bot.vc(r.channel) + style)
+  }
   if(r.path == "lvc" && r.channel) {
     await bot.lvc(r.channel)
     re.send(v + await bot.selectChannel(bot.fetchGuild(r.channel)) + style)
