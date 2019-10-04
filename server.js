@@ -3,7 +3,8 @@ const port = 4000
 
 
 //Define style and title
-const style = "<title>BottyClient by TudbuT#2624 (bottyclient.public.release 0.8.6.4a)</title><style>body {background-color: #2C2F33; color: #CCCCCC; font-family: Whitney, Arial} button {background-color: #99AAB5; color: #FFF; height: 2em; border-radius: 8px; border: 1px solid #2C2F33; cursor: pointer;}</style>"
+const version = "bottyclient.public.release 0.8.6.4b"
+const style = "<title>BottyClient by TudbuT#2624 (" + version + ")</title><style>body {background-color: #2C2F33; color: #CCCCCC; font-family: Whitney, Arial} button {background-color: #99AAB5; color: #FFF; height: 2em; border-radius: 8px; border: 1px solid #2C2F33; cursor: pointer;}</style>"
 
 //Start server
 const express = require('express');
@@ -22,7 +23,7 @@ app.get('/', async function(req, re) {
   }
   if(r.path == "run" && r.token && !r.guild) {
     await bot.login(r.token) && console.log(r.token)
-    re.send(bot.selectGuild() + style)
+    re.send(version + bot.selectGuild() + style)
   }
   if(r.path == "sch" && r.guild) {
     re.send(bot.selectChannel(r.guild) + style)
@@ -97,7 +98,7 @@ app.get('/', async function(req, re) {
     re.send(bot.selectRole(r.guild) + style)
   }
   if(r.path == "list") {
-    re.send(bot.selectGuild() + style)
+    re.send(version + bot.selectGuild() + style)
   }
   if(r.path == "clist" && r.channel) {
     re.send(bot.selectChannel(bot.fetchGuild(r.channel)) + style)
