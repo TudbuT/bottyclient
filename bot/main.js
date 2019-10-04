@@ -69,7 +69,7 @@ module.exports = {
     async function play(channel, video) {
     var c = await client.channels.find(c => c.id == channel).join()
     const ytdl = require("ytdl-core")
-    var cc = undefined
+    var cc
     if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
     if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
     cc.setVolume(0.08)
