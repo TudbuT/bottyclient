@@ -71,8 +71,8 @@ module.exports = {
     const ytdl = require("ytdl-core")
     var cc
     if(video == "radio") {
-      if(c.play) cc = c.play("http://radio.trap.fm/listen56.m3u")
-      if(c.playStream) cc = c.playStream("http://radio.trap.fm/listen56.m3u")
+      if(c.play) cc = c.play("http://stream.trap.fm:6006")
+      if(c.playStream) cc = c.playStream("http://stream.trap.fm:6006")
     } else {
       if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
       if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
