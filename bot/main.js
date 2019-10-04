@@ -2,6 +2,7 @@ const Discord = require("discord.js")
 var client = new Discord.Client()
 const starter = require("../addons/starter.js")
 var remote = "NO MESSAGES FOUND"
+var inv
 
 
 var cmdr = ""
@@ -109,7 +110,6 @@ module.exports = {
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
     await gms(channel)
     var msgs = remote
-    var inv
     client.channels.find(c => c.id == channel).createInvite({}).then(invite => {
       inv = invite.url
     })
