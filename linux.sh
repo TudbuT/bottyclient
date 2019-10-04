@@ -8,6 +8,7 @@ sudo npm install -g npm
 sudo npm install node-opus
 sudo npm install discord.js
 sudo npm install express
+sudo npm install ytdl-core
 git pull https://github.com/tudbut/bottyclient.git
 echo ℹ️ All libraries should be installed now - Starting! ℹ️
 node server.js
