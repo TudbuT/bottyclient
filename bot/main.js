@@ -16,6 +16,7 @@ module.exports = {
     return
   },
   logout: function () {
+    client.destroy()
     c2 = new Discord.Client()
     client = c2
   },
