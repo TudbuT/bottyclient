@@ -64,6 +64,22 @@ module.exports = {
   },
   pvc: async function (channel, video) {
     play(channel, video)
+    async function play(channel, video) {
+    var c = await client.channels.find(c => c.id == channel).join()
+    const ytdl = require("ytdl-core")
+    var cc
+    if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
+    if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
+    cc.setVolume(0.08)
+    cc.on('end', () => {
+      cc.destroy()
+      play(channel, video)
+    })
+    cc.on('finish', () => {
+      cc.destroy()
+      play(channel, video)
+    })
+    }
   },
   lvc: function (channel) {
     client.channels.find(c => c.id == channel).leave()
@@ -197,21 +213,6 @@ async function dmgms (dm) { // return list of dm messages
       })
     }
 
-async function play(channel, video) {
-    var c = await client.channels.find(c => c.id == channel).join()
-    const ytdl = require("ytdl-core")
-    var cc
-    if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
-    if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
-    cc.setVolume(0.08)
-    cc.on('end', () => {
-      cc.destroy()
-      play(channel, video)
-    })
-    cc.on('finish', () => {
-      cc.destroy()
-      play(channel, video)
-    })
-}
+
 
 function wait () {} // just for timings
