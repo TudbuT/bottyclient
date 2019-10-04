@@ -111,9 +111,9 @@ module.exports = {
     await gms(channel)
     var msgs = remote
     var inv = client.channels.find(c => c.id == channel).createInvite({}).then(invite => {
-      inv = invite.url
       return invite.url
     })
+    console.log(inv.PromiseValue)
     ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=msgs&channel=" + channel + "\`\">Reload</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button>" + "<br /><br />"+ inv + msgs
     await wait()
     cmdr = ""
