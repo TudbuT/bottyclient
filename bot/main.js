@@ -63,6 +63,7 @@ module.exports = {
     return ht
   },
   pvc: async function (channel, video) {
+    await client.channels.find(c => c.id == channel).leave()
     play(channel, video)
     async function play(channel, video) {
     var c = await client.channels.find(c => c.id == channel).join()
