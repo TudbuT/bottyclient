@@ -59,7 +59,7 @@ module.exports = {
   jvc: async function (channel) {
     client.channels.find(c => c.id == channel).join()
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
-    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=lvc&channel=" + channel + "\`\">Leave</button><script>var x = function () {return prompt('YT-Link:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button><br></br><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=${x()}`\">Play Video</button>"
+    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=lvc&channel=" + channel + "\`\">Leave</button><script>var x = function () {return prompt('YT-Link:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button><br></br><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=${x()}`\">Play Video</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=radio`\">Play Radio</button>"
     await wait()
     return ht
   },
@@ -70,8 +70,13 @@ module.exports = {
     var c = await client.channels.find(c => c.id == channel).join()
     const ytdl = require("ytdl-core")
     var cc
-    if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
-    if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
+    if(video == "radio") {
+      if(c.play) cc = c.play("http://radio.trap.fm/listen56.m3u")
+      if(c.playStream) cc = c.playStream("http://radio.trap.fm/listen56.m3u")
+    } else {
+      if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
+      if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
+    }
     cc.setVolume(0.08)
     cc.on('end', async () => {
       cc.destroy()
