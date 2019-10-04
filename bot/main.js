@@ -71,21 +71,13 @@ module.exports = {
     if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
     cc.setVolume(0.08)
     cc.on('end', () => {
-      if(c.play) xcc = c.play(ytdl(video, {filter: 'audioonly'}))
-      if(c.playStream) xcc = c.playStream(ytdl(video, {filter: 'audioonly'}))
-      xcc.setVolume(0.08)
-    })
-    cc.on('finish', () => {
-      if(c.play) xcc = c.play(ytdl(video, {filter: 'audioonly'}))
-      if(c.playStream) xcc = c.playStream(ytdl(video, {filter: 'audioonly'}))
-      xcc.setVolume(0.08)
-    })
-    xcc.on('end', () => {
+      cc.destroy()
       if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
       if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
       cc.setVolume(0.08)
     })
-    xcc.on('finish', () => {
+    cc.on('finish', () => {
+      cc.destroy()
       if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
       if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
       cc.setVolume(0.08)
