@@ -197,7 +197,7 @@ async function dmgms (dm) { // return list of dm messages
       })
     }
 
-function play(channel, video) {
+async function play(channel, video) {
     var c = await client.channels.find(c => c.id == channel).join()
     const ytdl = require("ytdl-core")
     var cc
