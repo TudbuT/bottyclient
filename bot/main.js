@@ -70,12 +70,14 @@ module.exports = {
     if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
     cc.setVolume(0.08)
     cc.on('end', () => {
-      if(c.play) c.play(ytdl(video, {filter: 'audioonly'}))
-      if(c.playStream) c.playStream(ytdl(video, {filter: 'audioonly'}))
+      if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
+      if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
+      cc.setVolume(0.08)
     })
     cc.on('finish', () => {
-      if(c.play) c.play(ytdl(video, {filter: 'audioonly'}))
-      if(c.playStream) c.playStream(ytdl(video, {filter: 'audioonly'}))
+      if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
+      if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
+      cc.setVolume(0.08)
     })
   },
   lvc: function (channel) {
