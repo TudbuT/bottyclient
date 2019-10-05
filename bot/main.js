@@ -61,7 +61,7 @@ module.exports = {
   jvc: async function (channel) {
     client.channels.find(c => c.id == channel).join()
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
-    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=lvc&channel=" + channel + "\`\">Leave</button><script>var x = function () {return prompt('YT-Link:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button><br></br><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=${x()}`\">Play Video</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=radio`\">Play MC</button>"
+    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=lvc&channel=" + channel + "\`\">Leave</button><script>var x = function () {return prompt('YT-Link:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button><br></br><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=${x()}`\">Play Video</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=mc`\">Play MC</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=njoy`\">Play Radio (Germany / N-JOY)</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=ggr`\">Play Radio (GGradio)</button>"
     await wait()
     return ht
   },
@@ -72,11 +72,19 @@ module.exports = {
     var c = await client.channels.find(c => c.id == channel).join()
     const ytdl = require("ytdl-core")
     var cc
-    if(video == "radio") {
-      if(c.play) cc = c.play("https://minecraft-soundtrack.stream.laut.fm")
-      if(c.playStream) cc = c.playStream("http://stream.trap.fm:6006")
+    if(video == "ggr") {
+      if(c.play) cc = c.play("https://api.tmw.media/ggradio/stream")
+      if(c.playStream) cc = c.playStream("https://api.tmw.media/ggradio/stream")
       cc.setVolume(0.12)
-    } else {
+    } else if(video == "njoy") {
+      if(c.play) cc = c.play("https://ndr-njoy-live.sslcast.addradio.de/ndr/njoy/live/mp3/128/stream.mp3")
+      if(c.playStream) cc = c.playStream("https://ndr-njoy-live.sslcast.addradio.de/ndr/njoy/live/mp3/128/stream.mp3")
+      cc.setVolume(0.12)
+    } else if(video == "mc") {
+      if(c.play) cc = c.play("https://minecraft-soundtrack.stream.laut.fm")
+      if(c.playStream) cc = c.playStream("https://minecraft-soundtrack.stream.laut.fm")
+      cc.setVolume(0.12)
+    } else if(video != "mc" && video != "radio") {
       if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
       if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
       cc.setVolume(0.06)
