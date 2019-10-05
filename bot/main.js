@@ -81,8 +81,8 @@ module.exports = {
       if(c.playStream) cc = c.playStream("https://ndr-njoy-live.sslcast.addradio.de/ndr/njoy/live/mp3/128/stream.mp3")
       cc.setVolume(0.12)
     } else if(video == "mc") {
-      if(c.play) cc = c.play("https://minecraft-soundtrack.stream.laut.fm")
-      if(c.playStream) cc = c.playStream("https://minecraft-soundtrack.stream.laut.fm")
+      if(c.play) cc = c.play("http://stream.laut.fm/minecraft-soundtrack")
+      if(c.playStream) cc = c.playStream("http://stream.laut.fm/minecraft-soundtrack")
       cc.setVolume(0.12)
     } else if(video != "mc" && video != "radio") {
       if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
