@@ -75,7 +75,7 @@ module.exports = {
     if(video == "ggr") {
       if(c.play) cc = c.play("https://api.tmw.media/ggradio/stream")
       if(c.playStream) cc = c.playStream("https://api.tmw.media/ggradio/stream")
-      cc.setVolume(0.3)
+      cc.setVolume(0.24)
     } else if(video == "njoy") {
       if(c.play) cc = c.play("https://ndr-njoy-live.sslcast.addradio.de/ndr/njoy/live/mp3/128/stream.mp3")
       if(c.playStream) cc = c.playStream("https://ndr-njoy-live.sslcast.addradio.de/ndr/njoy/live/mp3/128/stream.mp3")
