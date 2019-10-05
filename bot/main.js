@@ -18,7 +18,7 @@ module.exports = {
   },
   logout: function () {
     client.destroy()
-    c2 = new Discord.Client()
+    const c2 = new Discord.Client()
     client = c2
   },
   selectGuild: function(){
