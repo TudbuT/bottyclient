@@ -83,7 +83,7 @@ module.exports = {
     } else if(video == "mc") {
       if(c.play) cc = c.play("http://stream.laut.fm/minecraft-soundtrack")
       if(c.playStream) cc = c.playStream("http://stream.laut.fm/minecraft-soundtrack")
-      cc.setVolume(0.12)
+      cc.setVolume(0.4)
     } else if(video != "mc" && video != "radio") {
       if(c.play) cc = c.play(ytdl(video, {filter: 'audioonly'}))
       if(c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}))
