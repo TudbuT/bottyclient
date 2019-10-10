@@ -1,6 +1,10 @@
+apt-get update
 apt-get install npm
 apt-get install nodejs
 apt-get install ffmpeg
+pkg install npm
+pkg install nodejs
+pkg install ffmpeg
 npm install n
 npm install discord.js
 npm install express
