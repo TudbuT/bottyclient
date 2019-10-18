@@ -250,7 +250,7 @@ async function dmgms (dm) { // return list of dm messages
             if(m.embeds[0].description) d = m.embeds[0].description.replace("<", "&lt;");
             var t = ""
             if(m.embeds[0].title) t = m.embeds[0].title.replace("<", "&lt;");
-            var ma = maut(m.embeds[0]);
+            var ma = maut(m);
             embeds = `<dembed> <pre>${ma}[T]${t}
 
 ${d}
@@ -272,10 +272,10 @@ ${d}
 
 
 function wait () {} // just for timings
-function maut(e) {
-  if(e.author) 
-    if(e.author.name) {
-      return "[A]" + e.author.name.replace("<", "&lt;") + "\n";
+function maut(em) {
+  if(em.embeds[0].author) 
+    if(em.embeds[0].author.name) {
+      return "[A]" + em.embeds[0].author.name.replace("<", "&lt;") + "\n";
     }
     else return "";
   else return "";
