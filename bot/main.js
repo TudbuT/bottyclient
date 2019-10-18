@@ -216,13 +216,16 @@ async function gms (channel) { // return list of messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
-          var ma = maut(m)
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
-            var ma = maut(m.embeds[0]);
-            embeds = `<dembed> <pre>${ma.replace("<", "\<")}[T]${m.embeds[0].title.replace("<", "\<")}
+            var d = ""
+            if(m.embeds[0].description) d = m.embeds[0].description.replace("<", "\<");
+            var t = ""
+            if(m.embeds[0].title) d = m.embeds[0].title.replace("<", "\<");
+            var ma = maut(m);
+            embeds = `<dembed> <pre>${ma.replace("<", "\<")}[T]${t.replace("<", "\<")}
 
-${m.embeds[0].description.replace("<", "\<")}
+${d.replace("<", "\<")}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
