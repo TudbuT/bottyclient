@@ -274,9 +274,10 @@ ${d}
 function wait () {} // just for timings
 function maut(m) {
   if(m.author) 
-    if(m.author.name)
-      console.log("Found author")
+    if(m.author.name) {
+      console.log("Found author"); 
       return "[A]" + m.author.name.replace("<", "&lt;") + "\n";
+    }
     else return "";
   else return "";
 }
