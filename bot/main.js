@@ -216,8 +216,9 @@ async function gms (channel) { // return list of messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
+          var ma = maut(m)
           var embeds = ""
-          if(m.embeds && m.embeds[0]) embeds = `<dembed> <pre> ${function(m) {if(m.embeds[0].author) if(m.embeds[0].author.name) return m.embeds[0].author.name + "\n"; else return "";}} ${m.embeds[0].title}
+          if(m.embeds && m.embeds[0]) embeds = `<dembed> <pre> ${ma}${m.embeds[0].title}
 
 ${m.embeds[0].description}
 
@@ -237,8 +238,9 @@ async function dmgms (dm) { // return list of dm messages
       await client.users.find(u => u.id == dm).createDM().then(async c => {
       await c.fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
+          var ma = maut(m)
           var embeds = ""
-          if(m.embeds && m.embeds[0]) embeds = `<dembed> <pre> ${m.embeds[0].title}
+          if(m.embeds && m.embeds[0]) embeds = `<dembed> <pre> ${ma}${m.embeds[0].title}
 
 ${m.embeds[0].description}
 
@@ -258,3 +260,4 @@ ${m.embeds[0].description}
 
 
 function wait () {} // just for timings
+function maut(m) {if(m.embeds[0].author) if(m.embeds[0].author.name) return m.embeds[0].author.name + "\n"; else return "";}
