@@ -223,7 +223,7 @@ ${m.embeds[0].description}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
-          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
+          x = x + "<br /><br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
           remote = x
         })
         if(remote) {
@@ -244,7 +244,7 @@ ${m.embeds[0].description}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
-          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button></br>`
+          x = x + "<br /><br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button>`
           remote = x
         })
         if(remote) {
