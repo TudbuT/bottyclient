@@ -217,7 +217,7 @@ async function gms (channel) { // return list of messages
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
           var embeds = ""
-          if(m.embeds && m.embeds[0]) embeds = `<dembed> <pre> ${m.embeds[0].title}
+          if(m.embeds && m.embeds[0]) embeds = `<dembed> <pre> ${function(m) {if(m.embeds[0].author) if(m.embeds[0].author.name) return m.embeds[0].author.name + "\n"; else return "";}} ${m.embeds[0].title}
 
 ${m.embeds[0].description}
 
