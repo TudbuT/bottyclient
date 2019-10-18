@@ -249,7 +249,7 @@ async function dmgms (dm) { // return list of dm messages
             var d = ""
             if(m.embeds[0].description) d = m.embeds[0].description.replace("<", "\<");
             var t = ""
-            if(m.embeds[0].title) d = m.embeds[0].title.replace("<", "\<");
+            if(m.embeds[0].title) t = m.embeds[0].title.replace("<", "\<");
             var ma = maut(m);
             embeds = `<dembed> <pre>${ma.replace("<", "\<")}[T]${t.replace("<", "\<")}
 
