@@ -1,2 +1,2 @@
-git pull -m "" https://github.com/TudbuT/bottyclient.git unstable
+git pull https://github.com/TudbuT/bottyclient.git unstable
 node server.js
