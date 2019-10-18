@@ -219,7 +219,7 @@ async function gms (channel) { // return list of messages
           var ma = maut(m)
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
-            var ma = maut(m);
+            var ma = maut(m.embeds[0]);
             embeds = `<dembed> <pre> ${ma}${m.embeds[0].title}
 
 ${m.embeds[0].description}
@@ -265,4 +265,4 @@ ${m.embeds[0].description}
 
 
 function wait () {} // just for timings
-function maut(m) {if(m.embeds[0].author) if(m.embeds[0].author.name) return m.embeds[0].author.name + "\n"; else return "";}
+function maut(m) {if(m.author) if(m.author.name) return m.author.name + "\n"; else return "";}
