@@ -238,9 +238,9 @@ async function dmgms (dm) { // return list of dm messages
       await c.fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
           var embeds = "[NO EMBEDS]"
-          if(m.embeds) embeds = `<dembed> <pre> ${m.embeds[0].title}
+          if(m.embeds && await m.embeds[0]) embeds = `<dembed> <pre> ${await m.embeds[0].title}
 
-${m.embeds[0].description}
+${await m.embeds[0].description}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
