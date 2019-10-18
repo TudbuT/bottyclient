@@ -220,9 +220,9 @@ async function gms (channel) { // return list of messages
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
             var ma = maut(m.embeds[0]);
-            embeds = `<dembed> <pre>${ma}[T]${m.embeds[0].title}
+            embeds = `<dembed> <pre>${ma.replace("<", "\<")}[T]${m.embeds[0].title.replace("<", "\<")}
 
-${m.embeds[0].description}
+${m.embeds[0].description.replace("<", "\<")}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
@@ -244,9 +244,9 @@ async function dmgms (dm) { // return list of dm messages
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
             var ma = maut(m);
-            embeds = `<dembed> <pre>${ma}[T]${m.embeds[0].title}
+            embeds = `<dembed> <pre>${ma.replace("<", "\<")}[T]${m.embeds[0].title.replace("<", "\<")}
 
-${m.embeds[0].description}
+${m.embeds[0].description.replace("<", "\<")}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
