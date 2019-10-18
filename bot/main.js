@@ -266,6 +266,7 @@ ${m.embeds[0].description}
 
 function wait () {} // just for timings
 function maut(m) {
-  if(m.author) if(m.author.name) return "[A]" + m.author.name + "\n"
-  else return "";
+  if(m.author) if(m.author.name) {
+    return "[A]" + m.author.name + "\n";
+  } else return "";
 }
