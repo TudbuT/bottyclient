@@ -220,7 +220,7 @@ async function gms (channel) { // return list of messages
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
             var ma = maut(m.embeds[0]);
-            embeds = `<dembed> <pre>${ma}${m.embeds[0].title}
+            embeds = `<dembed> <pre>${ma}[T]${m.embeds[0].title}
 
 ${m.embeds[0].description}
 
@@ -244,7 +244,7 @@ async function dmgms (dm) { // return list of dm messages
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
             var ma = maut(m);
-            embeds = `<dembed> <pre>${ma}${m.embeds[0].title}
+            embeds = `<dembed> <pre>${ma}[T]${m.embeds[0].title}
 
 ${m.embeds[0].description}
 
@@ -265,4 +265,4 @@ ${m.embeds[0].description}
 
 
 function wait () {} // just for timings
-function maut(m) {if(m.author) if(m.author.name) return m.author.name + "\n"; else return "";}
+function maut(m) {if(m.author) if(m.author.name) return "[A]" + m.author.name + "\n"; else return "";}
