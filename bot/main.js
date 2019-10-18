@@ -245,7 +245,7 @@ ${await m.embeds[0].description}
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button></br>`
-          remote = x
+          remote = await x
         })
         if(remote) {
           await wait()
