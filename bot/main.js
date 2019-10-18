@@ -1,8 +1,8 @@
 const Discord = require("discord.js")
 var client = new Discord.Client()
 const starter = require("../addons/starter.js")
-var remote = "NO MESSAGES FOUND"
-global.inv = "NO INVITE FOUND"
+var remote = "<br />NO MESSAGES FOUND"
+global.inv = "<br />NO INVITE FOUND"
 
 
 var cmdr = ""
@@ -129,7 +129,7 @@ module.exports = {
     return ht
   },
   dmmessages: async function(dm) {
-    remote = "ERR 2 (NO MESSAGES FOUND)"
+    remote = "<br />ERR 2 (NO MESSAGES FOUND)"
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
     await dmgms(dm)
     var msgs = remote
@@ -139,7 +139,7 @@ module.exports = {
     return ht
   },
   dmlmessages: async function(dm) {
-    remote = "ERR 2 (NO MESSAGES FOUND)"
+    remote = "<br />ERR 2 (NO MESSAGES FOUND)"
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
     await dmgms(dm)
     var msgs = remote
@@ -165,7 +165,7 @@ module.exports = {
     var send = 1
     cmdr = ""
     if(msg.startsWith("/bc")) send = 0;
-    if(msg == "/bc.i") cmdr = `<br />ID: ${dm}<br />Tag: ${await client.users.find(u => u.id == dm).tag}`;
+    if(msg == "/bc.i") cmdr = `<br />ID: <pre>${dm}</pre><br />Tag: <pre>${await client.users.find(u => u.id == dm).tag}</pre>`;
     if(msg == "/bc.help") cmdr = `<br /><code><pre>
 Commands:
 "/bc.i" - Shows user info
