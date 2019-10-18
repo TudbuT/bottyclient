@@ -218,12 +218,15 @@ async function gms (channel) { // return list of messages
         await ms.forEach(m => {
           var ma = maut(m)
           var embeds = ""
-          if(m.embeds && m.embeds[0]) embeds = `<dembed> <pre> ${ma}${m.embeds[0].title}
+          if(m.embeds && m.embeds[0]) {
+            var ma = maut(m);
+            embeds = `<dembed> <pre> ${ma}${m.embeds[0].title}
 
 ${m.embeds[0].description}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
+          }
           x = x + "<br /><br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
           remote = x
         })
@@ -238,14 +241,16 @@ async function dmgms (dm) { // return list of dm messages
       await client.users.find(u => u.id == dm).createDM().then(async c => {
       await c.fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
-          var ma = maut(m)
           var embeds = ""
-          if(m.embeds && m.embeds[0]) embeds = `<dembed> <pre> ${ma}${m.embeds[0].title}
+          if(m.embeds && m.embeds[0]) {
+            var ma = maut(m);
+            embeds = `<dembed> <pre> ${ma}${m.embeds[0].title}
 
 ${m.embeds[0].description}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
+          }
           x = x + "<br /><br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button>`
           remote = x
         })
