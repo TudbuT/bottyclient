@@ -215,11 +215,11 @@ client.on('ready', () => {
 async function gms (channel) { // return list of messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
-        await ms.forEach(m => {
+        await ms.forEach(async m => {
           var embeds = "[NO EMBEDS]"
-          if(m.embeds) embeds = `<dembed> <pre> ${m.embeds[0].title}
+          if(m.embeds && await m.embeds[0]) embeds = `<dembed> <pre> ${await m.embeds[0].title}
 
-${m.embeds[0].description}
+${await m.embeds[0].description}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
@@ -236,7 +236,7 @@ async function dmgms (dm) { // return list of dm messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.users.find(u => u.id == dm).createDM().then(async c => {
       await c.fetchMessages({limit: 50}).then(async ms => {
-        await ms.forEach(m => {
+        await ms.forEach(async m => {
           var embeds = "[NO EMBEDS]"
           if(m.embeds && await m.embeds[0]) embeds = `<dembed> <pre> ${await m.embeds[0].title}
 
