@@ -249,7 +249,7 @@ async function dmgms (dm) { // return list of dm messages
             var d = ""
             if(m.embeds[0].description) d = m.embeds[0].description.replace("<", "&lt;");
             var t = ""
-            if(m.embeds[0].title) t = m.embeds[0].title.replace("<", "\<");
+            if(m.embeds[0].title) t = m.embeds[0].title.replace("<", "&lt;");
             var ma = maut(m);
             embeds = `<dembed> <pre>${ma}[T]${t}
 
@@ -275,6 +275,7 @@ function wait () {} // just for timings
 function maut(m) {
   if(m.author) 
     if(m.author.name)
+      console.log("Found author")
       return "[A]" + m.author.name.replace("<", "&lt;") + "\n";
     else return "";
   else return "";
