@@ -216,7 +216,14 @@ async function gms (channel) { // return list of messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
-          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
+          var embeds = "[NO EMBEDS]"
+          if(m.embeds) embeds = `<embed> <pre> ${m.embeds[0].title}
+
+${m.embeds[0].description}
+
+[FIELDS AREN'T SUPPORTED YET]
+</pre> </embed>`
+          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
           remote = x
         })
         if(remote) {
@@ -230,7 +237,14 @@ async function dmgms (dm) { // return list of dm messages
       await client.users.find(u => u.id == dm).createDM().then(async c => {
       await c.fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
-          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button></br>`
+          var embeds = "[NO EMBEDS]"
+          if(m.embeds) embeds = `<embed> <pre> ${m.embeds[0].title}
+
+${m.embeds[0].description}
+
+[FIELDS AREN'T SUPPORTED YET]
+</pre> </embed>`
+          x = x + "<br>" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button></br>`
           remote = x
         })
         if(remote) {
