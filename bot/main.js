@@ -119,7 +119,7 @@ module.exports = {
       await m.kick()
       console.log("Kicked " + m.user.tag)
     })
-  }
+  },
   messages: async function(channel) {
     remote = "<br />ERR 2 (NO MESSAGES FOUND)"
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
