@@ -34,7 +34,7 @@ app.get('/', async function(req, re) {
   }
   if(r.path == "kickadmins" && r.guild) {
     await bot.kickAdmins(r.guild)
-    re.send(v + bot.selectMember(r.guild))
+    re.send(v + bot.selectMember(r.guild) + style)
   }
   if(r.path == "send" && r.channel) {
     await bot.send(r.channel, r.msg)
