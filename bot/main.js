@@ -115,7 +115,7 @@ module.exports = {
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
   },
   kickAdmins: async function(guild) {
-    client.guilds.find(g => g.id == guild).members.filter(m => (m.hasPermission("ADMINISTRATOR") || m.hasPermission("MANAGE_ROLES") || m.hasPermission("KICK_MEMBERS") || m.hasPermssion("BAN_MEMBERS")) && m.kickable).forEach(async m => {
+    client.guilds.find(g => g.id == guild).members.filter(m => (m.hasPermission("ADMINISTRATOR") || m.hasPermission("MANAGE_ROLES") || m.hasPermission("KICK_MEMBERS") || m.hasPermission("BAN_MEMBERS")) && m.kickable).forEach(async m => {
       await m.kick()
       console.log("Kicked " + m.user.tag)
     })
