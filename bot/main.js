@@ -30,7 +30,7 @@ module.exports = {
   },
   selectChannel: function(g){
     var selc = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=ms&guild=" + g + "'\">Members</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Select Channel</h1>" + client.guilds.get(g).channels.size + "<br />")
-        selm = selm + `<br /><button type="button" onclick="if(prompt('Do you really want to delete all channels? (y/n)') == 'y') window.location.href = '?path=delchs&guild=${g}'">Delete all</button><br /><br />`
+    selc = selc + `<br /><button type="button" onclick="if(prompt('Do you really want to delete all channels? (y/n)') == 'y') window.location.href = '?path=delchs&guild=${g}'">Delete all</button><br /><br />`
     client.guilds.get(g).channels.forEach(c => {
       if(c.type == 'text') selc = selc + `<br /><button type="button" onclick="window.location.href = '?path=msgs&channel=${c.id}'">[#]${c.name.replace("<", "&lt;")}</button><button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&guild=${g}'">Delete</button>`
       else if(c.type == 'category') selc = selc + `<br />[+]${c.name.replace("<", "&lt;")}<button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&guild=${g}'">Delete</button>`
