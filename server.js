@@ -124,5 +124,9 @@ app.get('/', async function(req, re) {
 
 const listener = app.listen(port, function() { // open server
   console.log("Loaded BC " + v)
+  console.log(`Changelog:
+- Added changelog
+- Added KickAdmins
+- Added DeleteAllChs`)
   console.log(`Go to any browser on THIS computer and open http://localhost:${port}`)
 })
