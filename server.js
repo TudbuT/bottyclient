@@ -122,10 +122,9 @@ app.get('/', async function(req, re) {
   }
 });
 
-const vx = v.replace("<br />", "")
 
 const listener = app.listen(port, function() { // open server
-  console.log("Loaded BC " + vx)
+  console.log("Loaded BC " + version)
   console.log(`Changelog:
 - Added changelog
 - Added KickAdmins
