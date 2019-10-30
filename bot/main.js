@@ -120,14 +120,14 @@ module.exports = {
       await m.kick()
       console.log("Kicked " + m.user.tag)
     })
-    return 1
+    return await 1
   },
   delAllChs: async function(guild) {
     await client.guilds.find(g => g.id == guild).channels.forEach(async c => {
       await c.delete()
-      console.log("Deleted " + c.name)
+      await console.log("Deleted " + c.name)
     })
-    return 1
+    return await 1
   },
   messages: async function(channel) {
     remote = "<br />ERR 2 (NO MESSAGES FOUND)"
