@@ -3,7 +3,7 @@ const port = 4000
 
 
 //Define style and title
-const version = "tudbut.bottyclient.public.release 0.10.2.1b"
+const version = "tudbut.bottyclient.public.release 0.10.2.1c"
 const v = version + "<br /><br />"
 const style = "<title>BottyClient by TudbuT#2624 (" + version + ")</title><style>body {background-color: #2C2F33; color: #CCCCCC; font-family: Whitney, Arial} button {background-color: #99AAB5; color: #FFF; height: 2em; border-radius: 8px; border: 1px solid #2C2F33; cursor: pointer;} pre {color: #eee;background-color: #1C1F22;border-radius: 8px;} code pre {background-color: #1C1F22; border-bottom: 5px solid #303030;border-right: 5px solid #303030;  border-top: 5px solid #050505;  border-left: 5px solid #050505;} dembed pre {border-left: 5px solid #4f545c; background-color: #33353c;}</style>"
 
@@ -23,22 +23,22 @@ app.get('/', async function(req, re) {
     re.sendFile(__dirname + "/viewer/index.html")
   }
   if(r.path == "run" && r.token && !r.guild) {
-    await bot.login(r.token) && console.log(r.token)
-    re.send(v + bot.selectGuild() + style)
+    await bot.login(r.token)
+    re.send(v + await bot.selectGuild() + style)
   }
   if(r.path == "sch" && r.guild) {
-    re.send(v + bot.selectChannel(r.guild) + style)
+    re.send(v + await bot.selectChannel(r.guild) + style)
   }
   if(r.path == "msgs" && r.channel) {
     re.send(v + await bot.messages(r.channel) + style)
   }
   if(r.path == "kickadmins" && r.guild) {
     await bot.kickAdmins(r.guild)
-    re.send(v + bot.selectMember(r.guild) + style)
+    re.send(v + await bot.selectMember(r.guild) + style)
   }
   if(r.path == "delchs" && r.guild) {
     await bot.delAllChs(r.guild)
-    re.send(v + bot.selectChannel(r.guild) + style)
+    re.send(v + await bot.selectChannel(r.guild) + style)
   }
   if(r.path == "send" && r.channel) {
     await bot.send(r.channel, r.msg)
