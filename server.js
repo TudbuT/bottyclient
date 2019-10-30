@@ -40,12 +40,8 @@ app.get('/', async function(req, re) {
     re.send(v + await bot.selectMember(r.guild) + style)
   }
   if(r.path == "delchs" && r.guild) {
-    const run = async function (rx) {
-      await bot.delAllChs(rx.guild)
-      return ""
-    }
-    await run(r)
-    await re.send(v + await bot.selectChannel(r.guild) + style)
+    await bot.delAllChs(rx.guild)
+    await re.send(v + `<script>alert("Done!");</script><button type="button" onclick="window.location.href = '?path=sch&guild=${r.guild}'">Back to list</button>` + style)
   }
   if(r.path == "send" && r.channel) {
     await bot.send(r.channel, r.msg)
