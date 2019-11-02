@@ -250,7 +250,17 @@ ${d}
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           }
-          x = x + "<br /><br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
+          var mcon = m.content
+          //mentions:
+            mcon = mcon.split("<@")
+            mcon.forEach(mmm => {
+              mmm = mmm.split(">")
+              mmm[0] = client.users.find(u => u.id == mmm[0]).tag
+              mmm = mmm.slice(1).join(">")
+              mcon = mcon + mmm
+            })
+          //;
+          x = x + "<br /><br />" + m.author.tag + " -- " + mcon.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
           remote = x
         })
         if(remote) {
