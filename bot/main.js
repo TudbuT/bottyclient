@@ -255,7 +255,7 @@ ${d}
             mcon = mcon.split("<@")
             mcon.forEach(async mmm => {
               mmm = mmm.split(">")
-              if (await client.users.find(u => u.id == await mmm[0])) mmm[0] = await client.users.find(u => u.id == await mmm[0]).tag
+              if (await client.users.find(u => u.id == mmm[0])) mmm[0] = await client.users.find(u => u.id == mmm[0]).tag
                 else mmm[0] = "@invalid-user"
               mmm = mmm.slice(1).join(">")
               mcon = mcon + mmm
