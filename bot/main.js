@@ -237,21 +237,22 @@ var mcon
 async function gms (channel) { // return list of messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
-        await ms.forEach(m => {
+        await ms.forEach(async m => {
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
             var d = ""
             if(m.embeds[0].description) d = m.embeds[0].description.replace("<", "&lt;");
             var t = ""
             if(m.embeds[0].title) t = m.embeds[0].title.replace("<", "&lt;");
-            var ma = maut(m);
-            embeds = `<dembed> <pre>${ma}[T]${t}
+            var ma = await maut(m);
+            embeds = await `<dembed> <pre>${ma}[T]${t}
 
 ${d}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           }
+          await wait()
           mcon = await m.content
           //mentions:
             mcon = await mcon.split("<@")
