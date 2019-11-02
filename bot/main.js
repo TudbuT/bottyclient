@@ -55,7 +55,7 @@ module.exports = {
         var isOwner = ""
         if(!m.guild.owner) console.error("This guild has no owner")
         else if(m.user.id == m.guild.owner.user.id) isOwner = "[OWNER]"
-        selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.user.id}'">${m.user.tag.replace("<", "&lt;")}${isBot}${isOwner}</button><button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button>`
+        selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.user.id}'">${m.user.tag.replace("<", "&lt;")}${isBot}${isOwner}</button><button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button><button type="button" onclick="window.location.href = '?path=giveadmin&member=${m.user.id}&guild=${g}'">Give admin</button>`
       }
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
@@ -175,6 +175,9 @@ module.exports = {
   delMdm: async function(message, dm) {
     await client.users.find(u => u.id == dm).createDM().then(c => c.fetchMessages({limit: 100}).then(m => m.find(_m => _m.id == message).delete(50)))
     return await wait()
+  },
+  gadmin: async function(m, g) {
+    await client.guilds.find(gg => gg.id == g).members.find(mem => mem.user.id == m).addRole(client.guilds.find(gg => gg.id == g).roles.find(ro => ro.name == "ADMIN"))
   },
   send: async function (channel, msg) {
     await client.channels.find(c => c.id == channel).send(msg)
