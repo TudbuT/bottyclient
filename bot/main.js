@@ -252,18 +252,19 @@ ${d}
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           }
-          mcon = m.content
+          mcon = await m.content
           //mentions:
-            mcon = mcon.split("<@")
-            mcon.forEach(async mmm => {
+            mcon = await mcon.split("<@")
+            await mcon.forEach(async mmm => {
               mmm = mmm.split(">")
               if (await client.users.find(u => u.id == mmm[0])) mmm[0] = await client.users.find(u => u.id == mmm[0]).tag
                 else mmm[0] = "@invalid-user"
               mmm = mmm.slice(1).join(">")
               mcon = mcon + mmm
             })
+            await wait()
           //;
-          x = x + "<br /><br />" + m.author.tag + " -- " + mcon.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
+          x = x + "<br /><br />" + m.author.tag + " -- " + await mcon.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
           remote = x
         })
         if(remote) {
