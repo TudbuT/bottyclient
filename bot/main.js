@@ -254,7 +254,7 @@ ${d}
           }
           await wait()
           mcon = await m.content
-          //mentions:
+          /*mentions:
             mcon = await mcon.split("<@")
             await mcon.forEach(async mmm => {
               mmm = mmm.split(">")
@@ -265,6 +265,7 @@ ${d}
             })
             await wait()
           //;
+          */
           x = x + "<br /><br />" + m.author.tag + " -- " + await mcon.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
           remote = x
         })
