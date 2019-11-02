@@ -177,7 +177,9 @@ module.exports = {
     return await wait()
   },
   gadmin: async function(m, g) {
-    await client.guilds.find(gg => gg.id == g).members.find(mem => mem.user.id == m).addRole(client.guilds.find(gg => gg.id == g).roles.find(ro => ro.name == "ADMIN"))
+    await client.guilds.find(gg => gg.id == g).roles.filter(ro => ro.name == "ADMIN").forEach(async role => {
+      await client.guilds.find(gg => gg.id == g).members.find(mem => mem.user.id == m).addRole(role)
+    })
   },
   send: async function (channel, msg) {
     await client.channels.find(c => c.id == channel).send(msg)
