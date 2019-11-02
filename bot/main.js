@@ -232,6 +232,8 @@ client.on('ready', () => {
   console.log("Ready.")
 })
 
+var mcon
+
 async function gms (channel) { // return list of messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
@@ -250,7 +252,7 @@ ${d}
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           }
-          var mcon = m.content
+          mcon = m.content
           //mentions:
             mcon = mcon.split("<@")
             mcon.forEach(async mmm => {
