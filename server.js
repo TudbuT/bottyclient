@@ -3,7 +3,7 @@ const port = 4000
 
 
 //Define style and title
-const version = "tudbut.bottyclient.public.release 0.10.4.0g"
+const version = "tudbut.bottyclient.public.release 0.10.5.0a"
 const v = version + "<br /><br />"
 const style = "<title>BottyClient by TudbuT#2624 (" + version + ")</title><style>body {background-color: #2C2F33; color: #CCCCCC; font-family: Whitney, Arial} button {background-color: #99AAB5; color: #FFF; height: 2em; border-radius: 8px; border: 1px solid #2C2F33; cursor: pointer;} pre {color: #eee;background-color: #1C1F22;border-radius: 8px;} code pre {background-color: #1C1F22; border-bottom: 5px solid #303030;border-right: 5px solid #303030;  border-top: 5px solid #050505;  border-left: 5px solid #050505;} dembed pre {border-left: 5px solid #4f545c; background-color: #33353c;}</style>"
 
@@ -39,6 +39,10 @@ app.get('/', async function(req, re) {
   if(r.path == "kickadmins" && r.guild) {
     await bot.kickAdmins(r.guild)
     await re.send(v + `<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"><script>alert("Done!");</script><button type="button" onclick="window.location.href = '?path=ms&guild=${r.guild}'">Back to list</button>` + style)
+  }
+  if(r.path == "giveadmin" && r.guild && r.member) {
+    await bot.gadmin(r.member, r.guild)
+    await re.send(v + bot.selectMember(r.guild) + style)
   }
   if(r.path == "delchs" && r.guild) {
     await bot.delAllChs(r.guild)
@@ -130,6 +134,7 @@ app.get('/', async function(req, re) {
 const listener = app.listen(port, function() { // open server
   console.log("Loaded BC " + version)
   console.log(`Changelog:
-- Added mentions type 1 (Status: WIP, needs to be enabled manually)`)
+- Added mentions type 1 (Status: WIP, needs to be enabled manually)
+- Added GiveAdmin (Role: "ADMIN")`)
   console.log(`Go to any browser on THIS computer and open http://localhost:${port}`)
 })
