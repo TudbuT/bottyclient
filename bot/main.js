@@ -253,9 +253,10 @@ ${d}
           var mcon = m.content
           //mentions:
             mcon = mcon.split("<@")
-            mcon.forEach(mmm => {
+            mcon.forEach(async mmm => {
               mmm = mmm.split(">")
-              mmm[0] = client.users.find(u => u.id == mmm[0]).tag
+              if (await client.users.find(async u => u.id == await mmm[0])) mmm[0] = await client.users.find(u => u.id == await mmm[0]).tag
+                else mmm[0] = "@invalid-user"
               mmm = mmm.slice(1).join(">")
               mcon = mcon + mmm
             })
