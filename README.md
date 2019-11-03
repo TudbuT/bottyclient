@@ -19,4 +19,4 @@ PATCH:
  Mostly bug fixes, sometimes mini-features
 
 try:
- Always a letter (a - z, after that, this will be translated into a PATCH), try to make an update or fix working
+ Always a letter (a - z, after that, this will be translated into a PATCHa again), try to make an update or fix working
