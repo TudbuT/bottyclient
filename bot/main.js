@@ -268,7 +268,7 @@ ${d}
               mcon = mcon.replace(`<#${obj.id}>`, `#${obj.name}`)
             })
             await client.channels.find(c => c.id == channel).guild.roles.forEach(obj => {
-              mcon = mcon.replace(`<@&${obj.id}>`, `@&${obj.tag}`)
+              mcon = mcon.replace(`<@&${obj.id}>`, `@&${obj.name}`)
             })
           //;
 
