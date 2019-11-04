@@ -1,7 +1,10 @@
 {
   "dependencies": {
     "discord.js": "^11.5.1",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "n": "^6.1.0",
+    "node-opus": "^0.3.3",
+    "ytdl-core": "^1.0.0"
   },
   "engines": {
     "node": "^12",
