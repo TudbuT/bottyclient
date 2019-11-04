@@ -259,18 +259,19 @@ ${d}
           }
           await wait()
           mcon = await m.content
-          /*mentions:
-            mcon = await mcon.split("<@")
-            await mcon.forEach(async mmm => {
-              mmm = mmm.split(">")
-              if (await client.users.find(u => u.id == mmm[0])) mmm[0] = await client.users.find(u => u.id == mmm[0]).tag
-                else mmm[0] = "@invalid-user"
-              mmm = mmm.slice(1).join(">")
-              mcon = mcon + mmm
+          //mentions & channels/roles:
+            await client.channels.find(c => c.id == channel).guild.members.forEach(obj => {
+              mcon = mcon.replace(`<@${obj.id}>`, `@${obj.tag}`)
+              mcon = mcon.replace(`<@!${obj.id}>`, `@${obj.tag}`)
             })
-            await wait()
+            await client.channels.find(c => c.id == channel).guild.channels.forEach(obj => {
+              mcon = mcon.replace(`<#${obj.id}>`, `#${obj.name}`)
+            })
+            await client.channels.find(c => c.id == channel).guild.roles.forEach(obj => {
+              mcon = mcon.replace(`<@&${obj.id}>`, `@&${obj.tag}`)
+            })
           //;
-          */
+
           x = x + "<br /><br />" + m.author.tag + " -- " + await mcon.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
           remote = x
         })
@@ -314,7 +315,7 @@ ${d}
 
 function wait () {} // just for timings
 function maut(em) {
-  if(em.embeds[0].author) 
+  if(em.embeds[0].author)
     if(em.embeds[0].author.name) {
       return "[A]" + em.embeds[0].author.name.replace("<", "&lt;") + "\n";
     }
