@@ -237,41 +237,37 @@ client.on('ready', () => {
   console.log("Ready.")
 })
 
-var mcon
+var mcon = "ERR";
 
 async function gms (channel) { // return list of messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
-        await ms.forEach(async m => {
+        await ms.forEach(m => {
+          mcon = m.content
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
             var d = ""
             if(m.embeds[0].description) d = m.embeds[0].description.replace("<", "&lt;");
             var t = ""
             if(m.embeds[0].title) t = m.embeds[0].title.replace("<", "&lt;");
-            var ma = await maut(m);
-            embeds = await `<dembed> <pre>${ma}[T]${t}
+            var ma = maut(m);
+            embeds = `<dembed> <pre>${ma}[T]${t}
 
 ${d}
 
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           }
-          await wait()
-          mcon = await m.content
-          /*mentions:
-            mcon = await mcon.split("<@")
-            await mcon.forEach(async mmm => {
-              mmm = mmm.split(">")
-              if (await client.users.find(u => u.id == mmm[0])) mmm[0] = await client.users.find(u => u.id == mmm[0]).tag
-                else mmm[0] = "@invalid-user"
-              mmm = mmm.slice(1).join(">")
-              mcon = mcon + mmm
-            })
-            await wait()
-          //;
-          */
-          x = x + "<br /><br />" + m.author.tag + " -- " + await mcon.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button>`
+          m.guild.members.forEach(obj => {
+            mcon = mcon.replace(`<@${obj.user.id}>`, `@${obj.user.tag}`).replace(`<@!${obj.user.id}>`, `@${obj.nickname}#${obj.user.discriminator}`)
+          })
+          m.guild.channels.forEach(obj => {
+            mcon = mcon.replace(`<#${obj.id}>`, `#${obj.name}`)
+          })
+          m.guild.members.forEach(obj => {
+            mcon = mcon.replace(`<@&${obj.id}>`, `@&${obj.name}`)
+          })
+          x = x + "<br>" + m.author.tag + " -- " + mcon.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
           remote = x
         })
         if(remote) {
@@ -312,9 +308,13 @@ ${d}
 
 
 
-function wait () {} // just for timings
+function wait () {
+  for(var delay = 0; delay < 100; delay++) {
+
+  }
+} // just for timings
 function maut(em) {
-  if(em.embeds[0].author) 
+  if(em.embeds[0].author)
     if(em.embeds[0].author.name) {
       return "[A]" + em.embeds[0].author.name.replace("<", "&lt;") + "\n";
     }
