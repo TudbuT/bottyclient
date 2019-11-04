@@ -260,7 +260,8 @@ ${d}
           }
 
           m.guild.members.forEach(obj => {
-            mcon = mcon.replace(`<@${obj.user.id}>`, `@${obj.user.tag}`).replace(`<@!${obj.user.id}>`, `@${obj.nickname}#${obj.user.discriminator}`          })
+            mcon = mcon.replace(`<@${obj.user.id}>`, `@${obj.user.tag}`).replace(`<@!${obj.user.id}>`, `@${obj.nickname}#${obj.user.discriminator}`)
+          })
           m.guild.channels.forEach(obj => {
             mcon = mcon.replace(`<#${obj.id}>`, `#${obj.name}`)
           })
