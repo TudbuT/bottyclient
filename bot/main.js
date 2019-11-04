@@ -258,9 +258,9 @@ ${d}
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           }
+
           m.guild.members.forEach(obj => {
-            mcon = mcon.replace(`<@${obj.user.id}>`, `@${obj.user.tag}`).replace(`<@!${obj.user.id}>`, `@${obj.nickname}#${obj.user.discriminator}`)
-          })
+            mcon = mcon.replace(`<@${obj.user.id}>`, `@${obj.user.tag}`).replace(`<@!${obj.user.id}>`, `@${obj.nickname}#${obj.user.discriminator}`          })
           m.guild.channels.forEach(obj => {
             mcon = mcon.replace(`<#${obj.id}>`, `#${obj.name}`)
           })
@@ -268,6 +268,7 @@ ${d}
             mcon = mcon.replace(`<@&${obj.id}>`, `@&${obj.name}`)
           })
           x = x + "<br>" + m.author.tag + " -- " + mcon.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
+
           remote = x
         })
         if(remote) {
