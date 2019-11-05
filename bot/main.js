@@ -297,7 +297,7 @@ ${d}
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           }
-          x = x + "<br /><br />" + m.author.tag + " -- " + m.content.repl("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button>`
+          x = x + "<br /><br />" + m.author.tag + " -- " + m.content.repl("\n", "<br />").repl("<", "&lt") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button>`
           remote = x
         })
         if(remote) {
@@ -318,7 +318,7 @@ function wait () {
 function maut(em) {
   if(em.embeds[0].author)
     if(em.embeds[0].author.name) {
-      return "[A]" + em.embeds[0].author.name.replace("<", "&lt;") + "\n";
+      return "[A]" + em.embeds[0].author.name.repl("<", "&lt;") + "\n";
     }
     else return "";
   else return "";
