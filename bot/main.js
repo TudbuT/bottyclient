@@ -268,7 +268,7 @@ ${d}
           m.guild.roles.forEach(obj => {
             mcon = mcon.repl(`<@&${obj.id}>`, `@&${obj.name}`)
           })
-          x = x + "<br>" + m.author.tag + " -- " + mcon.repl("\n", "<br />").repl("<", "&lt") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
+          x = x + "<br>" + m.author.tag + " -- " + mcon.repl("<", "&lt").repl("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
 
           remote = x
         })
@@ -297,7 +297,7 @@ ${d}
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           }
-          x = x + "<br /><br />" + m.author.tag + " -- " + m.content.repl("\n", "<br />").repl("<", "&lt") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button>`
+          x = x + "<br /><br />" + m.author.tag + " -- " + m.content.repl("<", "&lt").repl("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button>`
           remote = x
         })
         if(remote) {
