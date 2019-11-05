@@ -22,9 +22,9 @@ module.exports = {
     client = c2
   },
   selectGuild: function(){
-    var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=dmlist`\">DMlist</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><br /><br />" + client.guilds.size + "<br />")
+    var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=dmlist`\">DMlist</button><script>var x = function () {return prompt('Message:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")}</script><br /><br />" + client.guilds.size + "<br />")
     client.guilds.forEach(g => {
-      selg = selg + `<br /><button type="button" onclick="window.location.href = '?path=sch&guild=${g.id}'">${g.name.replace("<", "&lt;")}</button>`
+      selg = selg + `<br /><button type="button" onclick="window.location.href = '?path=sch&guild=${g.id}'">${g.name.repl("<", "&lt;")}</button>`
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selg + `<br /><br /><button type="button" onclick="window.location.href = '${starter.dsctools().getInvite(client)}'">GetInvite</button>`
   },
@@ -32,18 +32,18 @@ module.exports = {
     var selc = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=ms&guild=" + g + "'\">Members</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Select Channel</h1>" + client.guilds.get(g).channels.size + "<br />")
     selc = selc + `<br /><button type="button" onclick="if(prompt('Do you really want to delete all channels? (y/n)') == 'y') window.location.href = '?path=delchs&guild=${g}'">Delete all</button><br /><br />`
     client.guilds.get(g).channels.forEach(c => {
-      if(c.type == 'text') selc = selc + `<br /><button type="button" onclick="window.location.href = '?path=msgs&channel=${c.id}'">[#]${c.name.replace("<", "&lt;")}</button><button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&guild=${g}'">Delete</button>`
-      else if(c.type == 'category') selc = selc + `<br />[+]${c.name.replace("<", "&lt;")}<button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&guild=${g}'">Delete</button>`
-      else if(c.type == 'voice') selc = selc + `<br /><button type="button" onclick="window.location.href = '?path=jvc&channel=${c.id}'">[\<]${c.name.replace("<", "&lt;")}</button><button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&guild=${g}'">Delete</button>`
+      if(c.type == 'text') selc = selc + `<br /><button type="button" onclick="window.location.href = '?path=msgs&channel=${c.id}'">[#]${c.name.repl("<", "&lt;")}</button><button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&guild=${g}'">Delete</button>`
+      else if(c.type == 'category') selc = selc + `<br />[+]${c.name.repl("<", "&lt;")}<button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&guild=${g}'">Delete</button>`
+      else if(c.type == 'voice') selc = selc + `<br /><button type="button" onclick="window.location.href = '?path=jvc&channel=${c.id}'">[\<]${c.name.repl("<", "&lt;")}</button><button type="button" onclick="window.location.href = '?path=delete&channel=${c.id}&guild=${g}'">Delete</button>`
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selc + '<br /><br /><button type="button" onclick="window.location.href = `?path=create&type=text&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create TextChannel</button><button type="button" onclick="window.location.href = `?path=create&type=voice&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create VoiceChannel</button>'
   },
   selectRole: function(g){
     var selr = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=ms&guild=" + g + "'\">Members</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Roles</h1>" + client.guilds.get(g).roles.size + "<br />")
     client.guilds.get(g).roles.forEach(r => {
-      selr = selr + `<br />${r.name.replace("<", "&lt;")}<button type="button" onclick="window.location.href = '?path=deleter&role=${r.id}&guild=${g}'">Delete</button>`
+      selr = selr + `<br />${r.name.repl("<", "&lt;")}<button type="button" onclick="window.location.href = '?path=deleter&role=${r.id}&guild=${g}'">Delete</button>`
     })
-    return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selr + `<br /><br /><button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:').replace('#', '%23').replace('&', '%26') + '&perms=' + prompt('Permission (can be empty):')">Create</button>` //+ `<button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:').replace('#', '%23').replace('&', '%26') + '&perms=ADMINISTRATOR">Create ADMIN</button>`
+    return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selr + `<br /><br /><button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:').repl('#', '%23').repl('&', '%26') + '&perms=' + prompt('Permission (can be empty):')">Create</button>` //+ `<button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:').replace('#', '%23').replace('&', '%26') + '&perms=ADMINISTRATOR">Create ADMIN</button>`
   },
   selectMember: function(g){
     var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Members</h1>" + client.guilds.get(g).members.size + "<br />")
@@ -55,7 +55,7 @@ module.exports = {
         var isOwner = ""
         if(!m.guild.owner) console.error("This guild has no owner")
         else if(m.user.id == m.guild.owner.user.id) isOwner = "[OWNER]"
-        selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.user.id}'">${m.user.tag.replace("<", "&lt;")}${isBot}${isOwner}</button><button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button><button type="button" onclick="window.location.href = '?path=giveadmin&member=${m.user.id}&guild=${g}'">Give admin</button>`
+        selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.user.id}'">${m.user.tag.repl("<", "&lt;")}${isBot}${isOwner}</button><button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button><button type="button" onclick="window.location.href = '?path=giveadmin&member=${m.user.id}&guild=${g}'">Give admin</button>`
       }
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
@@ -63,7 +63,7 @@ module.exports = {
   jvc: async function (channel) {
     client.channels.find(c => c.id == channel).join()
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
-    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=lvc&channel=" + channel + "\`\">Leave</button><script>var x = function () {return prompt('YT-Link:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button><br></br><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=${x()}`\">Play Video</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=mc`\">Play MC</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=njoy`\">Play Radio (Germany / N-JOY)</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=ggr`\">Play Radio (GGradio)</button>"
+    ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=lvc&channel=" + channel + "\`\">Leave</button><script>var x = function () {return prompt('YT-Link:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button><br></br><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=${x()}`\">Play Video</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=mc`\">Play MC</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=njoy`\">Play Radio (Germany / N-JOY)</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=ggr`\">Play Radio (GGradio)</button>"
     await wait()
     return ht
   },
@@ -110,7 +110,7 @@ module.exports = {
       if(m) {
         var isBot = ""
         if(m.bot) isBot = "[BOT]"
-        selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.id}'">${m.tag.replace("<", "&lt;")}${isBot}</button>`
+        selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.id}'">${m.tag.repl("<", "&lt;")}${isBot}</button>`
       }
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
@@ -247,9 +247,9 @@ async function gms (channel) { // return list of messages
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
             var d = ""
-            if(m.embeds[0].description) d = m.embeds[0].description.replace("<", "&lt;");
+            if(m.embeds[0].description) d = m.embeds[0].description.repl("<", "&lt;");
             var t = ""
-            if(m.embeds[0].title) t = m.embeds[0].title.replace("<", "&lt;");
+            if(m.embeds[0].title) t = m.embeds[0].title.repl("<", "&lt;");
             var ma = maut(m);
             embeds = `<dembed> <pre>${ma}[T]${t}
 
@@ -260,15 +260,15 @@ ${d}
           }
 
           m.guild.members.forEach(obj => {
-            mcon = mcon.replace(`<@${obj.user.id}>`, `@${obj.user.tag}`).replace(`<@!${obj.user.id}>`, `@${obj.nickname}#${obj.user.discriminator}`)
+            mcon = mcon.repl(`<@${obj.user.id}>`, `@${obj.user.tag}`).repl(`<@!${obj.user.id}>`, `@${obj.nickname}#${obj.user.discriminator}`)
           })
           m.guild.channels.forEach(obj => {
-            mcon = mcon.replace(`<#${obj.id}>`, `#${obj.name}`)
+            mcon = mcon.repl(`<#${obj.id}>`, `#${obj.name}`)
           })
           m.guild.roles.forEach(obj => {
-            mcon = mcon.replace(`<@&${obj.id}>`, `@&${obj.name}`)
+            mcon = mcon.repl(`<@&${obj.id}>`, `@&${obj.name}`)
           })
-          x = x + "<br>" + m.author.tag + " -- " + mcon.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
+          x = x + "<br>" + m.author.tag + " -- " + mcon.repl("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
 
           remote = x
         })
@@ -286,9 +286,9 @@ async function dmgms (dm) { // return list of dm messages
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
             var d = ""
-            if(m.embeds[0].description) d = m.embeds[0].description.replace("<", "&lt;");
+            if(m.embeds[0].description) d = m.embeds[0].description.repl("<", "&lt;");
             var t = ""
-            if(m.embeds[0].title) t = m.embeds[0].title.replace("<", "&lt;");
+            if(m.embeds[0].title) t = m.embeds[0].title.repl("<", "&lt;");
             var ma = maut(m);
             embeds = `<dembed> <pre>${ma}[T]${t}
 
@@ -297,7 +297,7 @@ ${d}
 [FIELDS AREN'T SUPPORTED YET]
 </pre> </dembed>`
           }
-          x = x + "<br /><br />" + m.author.tag + " -- " + m.content.replace("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button>`
+          x = x + "<br /><br />" + m.author.tag + " -- " + m.content.repl("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button>`
           remote = x
         })
         if(remote) {
@@ -322,4 +322,11 @@ function maut(em) {
     }
     else return "";
   else return "";
+}
+
+String.prototype.repl = function (o, n) {
+  var result = this
+  result = result.split(o)
+  result = result.join(n)
+  return result
 }
