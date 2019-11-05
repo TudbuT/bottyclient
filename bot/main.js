@@ -243,7 +243,7 @@ async function gms (channel) { // return list of messages
       var x = "<br /><br /><br />Messages: <br /><br />"
       await client.channels.find(c => c.id == channel).fetchMessages({limit: 50}).then(async ms => {
         await ms.forEach(m => {
-          mcon = m.content.repl("<", "&lt")
+          mcon = m.content
           var embeds = ""
           if(m.embeds && m.embeds[0]) {
             var d = ""
@@ -268,7 +268,7 @@ ${d}
           m.guild.roles.forEach(obj => {
             mcon = mcon.repl(`<@&${obj.id}>`, `@&${obj.name}`)
           })
-          x = x + "<br>" + m.author.tag + " -- " + mcon.repl("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
+          x = x + "<br>" + m.author.tag + " -- " + mcon.repl("\n", "<br />").repl("<", "&lt") + embeds + `<button type="button" onclick="window.location.href = '?path=delM&channel=${channel}&message=${m.id}'">Delete</button></br>`
 
           remote = x
         })
