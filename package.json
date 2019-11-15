@@ -2,8 +2,9 @@
   "dependencies": {
     "discord.js": "^11.5.1",
     "express": "^4.17.1",
-    "n": "^6.1.0",
+    "n": "^6.1.1",
     "node-opus": "^0.3.3",
+    "opusscript": "0.0.7",
     "ytdl-core": "^1.0.0"
   },
   "engines": {
