@@ -1,4 +1,4 @@
-echo -e "\e[48;5;10m[i]\e[48;5;0m Installing/Updating NodeJS, npm and ffmpeg"
+ho -e "\e[48;5;10m[i]\e[48;5;0m Installing/Updating NodeJS, npm and ffmpeg"
 apt-get update>ilog.txt 2>&1
 apt-get install npm>>ilog.txt 2>&1
 apt-get install nodejs>>ilog.txt 2>&1

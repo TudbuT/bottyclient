@@ -1,0 +1,13 @@
+[pack]
+	packsizelimit = 2g
+[http]
+	sslCAInfo = C:/Program Files (x86)/Git/mingw32/ssl/certs/ca-bundle.crt
+	sslBackend = openssl
+[diff "astextplain"]
+	textconv = astextplain
+[core]
+	autocrlf = true
+	fscache = true
+	symlinks = false
+[credential]
+	helper = manager
