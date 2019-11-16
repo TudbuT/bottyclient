@@ -1,14 +1,17 @@
-
-sudo apt-get install npm
-sudo apt-get install nodejs
-sudo apt-get install ffmpeg
-sudo npm install n
-sudo n stable
-sudo npm install -g npm
-sudo npm install node-opus
-sudo npm install discord.js
-sudo npm install express
-sudo npm install ytdl-core
-git pull https://github.com/tudbut/bottyclient.git
-echo ℹ️ All libraries should be installed now - Starting! ℹ️
+echo -e "\e[48;5;10m[i]\e[48;5;0m Installing/Updating NodeJS, npm and ffmpeg"
+apt-get update > /dev/null
+apt-get install npm > /dev/null
+apt-get install nodejs > /dev/null
+apt-get install ffmpeg > /dev/null
+echo -e "\e[48;5;10m[i]\e[48;5;0m Installing/Updating libraries"
+npm install n > /dev/null
+npm install -g npm > /dev/null
+npm install discord.js > /dev/null
+npm install express > /dev/null
+npm install node-opus > /dev/null
+npm install ytdl-core > /dev/null
+echo -e "\e[48;5;10m[i]\e[48;5;0m Searching for updates"
+git pull https://github.com/tudbut/bottyclient.git > /dev/null
+echo -e "\e[48;5;10m[i]\e[48;5;0m All libraries should be installed now"
+echo -e "\e[48;5;10m[i]\e[48;5;0m Starting!"
 node server.js
