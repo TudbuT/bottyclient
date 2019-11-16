@@ -1,3 +1,5 @@
 BASH=/bin/bash
-git pull -s recursive https://github.com/TudbuT/bottyclient.git
+echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m Updating BC"
+git pull -s recursive https://github.com/TudbuT/bottyclient.git &> rlog.txt
+echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m Starting"
 node server.js
