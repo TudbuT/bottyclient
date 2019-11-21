@@ -19,5 +19,9 @@ echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m Creating terminal command 'bottyclient' (
 sudo echo cd $PATH>/bin/bottyclient
 sudo echo bash run.sh>>/bin/bottyclient
 sudo chmod +x /bin/bottyclient
+echo `cd ${PWD}`>~/nbottyclient
+echo `bash run.sh`>~/nbottyclient
+chmod +x ~/nbottyclient
+echo `alias nbottyclient="~/nbottyclient"`>>~/.bash_profile
 echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m Starting!"
 node server.js
