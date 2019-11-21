@@ -19,5 +19,10 @@ git config user.email "y@x.z"
 git config user.name "XYZ"
 git pull https://github.com/tudbut/bottyclient.git>>ilog.txt 2>&1
 echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m All libraries should be installed now"
+echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m Creating terminal command 'bottyclient'"
+echo `cd ${PWD}`>~/bottyclient
+echo `bash run.sh`>~/bottyclient
+chmod +x ~/bottyclient
+echo `alias bottyclient="~/bottyclient"`>>~/.bash_profile
 echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m Starting!"
 node server.js
