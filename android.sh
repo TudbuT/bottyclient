@@ -12,7 +12,7 @@ npm install n>>ilog.txt 2>&1
 npm install -g npm>>ilog.txt 2>&1
 npm install discord.js>>ilog.txt 2>&1
 npm install express>>ilog.txt 2>&1
-npm install node-opus>>ilog.txt 2>&1
+npm install opusscript>>ilog.txt 2>&1
 npm install ytdl-core>>ilog.txt 2>&1
 echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m Searching for updates"
 git config user.email "y@x.z"
