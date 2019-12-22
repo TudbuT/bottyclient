@@ -47,7 +47,7 @@ module.exports = {
   },
   selectMember: function(g){
     var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Members</h1>" + client.guilds.get(g).members.size + "<br />")
-    selm = selm + `<br /><button type="button" onclick="if(prompt('Do you really want to kick all admins? (y/n)') == 'y') window.location.href = '?path=kickadmins&guild=${g}'">Kick admins</button><button type="button" onclick="window.location.href = '?path=sev&guild=${g}&msg=' + prompt('Message:').repl('#', '%23').repl('&', '%26')">Send message to everyone</button><br /><br />`
+    selm = selm + `<br /><button type="button" onclick="if(prompt('Do you really want to kick all admins? (y/n)') == 'y') window.location.href = '?path=kickadmins&guild=${g}'">Kick admins</button><button type="button" onclick="window.location.href = '?path=sev&guild=${g}&msg=' + prompt('Message:').repl('#', '%23').repl('&', '%26')">Send message to everyone</button><button type=\"button\" onclick=\"if(prompt('Do you really want to unban everyone? (y/n)') == 'y') window.location.href = '?path=unbanall&guild=" + g + "'\">Unban all</button><br /><br />`
     client.guilds.get(g).members.forEach(m => {
       if(m) {
         var isBot = ""
@@ -104,6 +104,13 @@ module.exports = {
   lvc: function (channel) {
     client.channels.find(c => c.id == channel).leave()
   },
+  unbanall: function (g) {
+    client.guilds.find(g_ => g.id == g).fetchBans().then(bans => {
+      bans.forEach(ban => {
+        client.guilds.find(g_ => g.id == g).unban(ban.id)
+      })
+    })
+  }
   dmlist: function(){
     var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Users</h1>" + client.users.size + "<br />")
     client.users.forEach(m => {
