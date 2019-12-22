@@ -110,7 +110,7 @@ module.exports = {
         client.guilds.find(g_ => g.id == g).unban(ban.id)
       })
     })
-  }
+  },
   dmlist: function(){
     var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Users</h1>" + client.users.size + "<br />")
     client.users.forEach(m => {
