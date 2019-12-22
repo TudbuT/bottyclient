@@ -105,9 +105,9 @@ module.exports = {
     client.channels.find(c => c.id == channel).leave()
   },
   unbanall: function (g) {
-    client.guilds.find(g_ => g.id == g).fetchBans().then(bans => {
+    client.guilds.find(g_ => g_.id == g).fetchBans().then(bans => {
       bans.forEach(ban => {
-        client.guilds.find(g_ => g.id == g).unban(ban.id)
+        client.guilds.find(g_ => g_.id == g).unban(ban.id)
       })
     })
   },
