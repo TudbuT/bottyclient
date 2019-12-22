@@ -140,7 +140,6 @@ app.get('/', async function(req, re) {
 const listener = app.listen(port, function() { // open server
   console.log("Loaded BC " + version)
   console.log(`Changelog:
-- Way better replacement for mentions
-- Fixxed 'Sent to everyone'`)
+- Added UnbanAll`)
   console.log(`Go to any browser on THIS computer and open http://localhost:${port}`)
 })
