@@ -1,6 +1,6 @@
 {
   "name": "bottyclient",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -10,7 +10,7 @@
     "discord.js": "^11.5.1",
     "express": "^4.17.1",
     "n": "^6.1.0",
-    "node-opus": "^0.3.3",
+    "opusscript": "^0.0.7",
     "ytdl-core": "^1.0.0"
   },
   "repository": {
