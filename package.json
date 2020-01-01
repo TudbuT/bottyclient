@@ -1,6 +1,6 @@
 {
   "name": "bottyclient",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
