@@ -12,7 +12,7 @@ module.exports = {
   // Where the client listens for things to do //
   ///////////////////////////////////////////////
   login: token => {
-    await client.login(token)
+    client.login(token)
     loggedin = true
     return
   },
@@ -219,7 +219,7 @@ Commands:
     await client.guilds.get(guild).roles.find(r => r.id == role).delete()
     return
   },
-  deletem: async async (member, guild) => {
+  deletem: async (member, guild) => {
     await client.guilds.get(guild).members.find(m => m.id == member).kick()
     return
   },
