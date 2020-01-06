@@ -1,34 +1,34 @@
 const Discord = require("discord.js")
-var client = new Discord.Client()
+let client = new Discord.Client()
 const starter = require("../addons/starter.js")
-var remote = "<br />NO MESSAGES FOUND"
+let remote = "<br />NO MESSAGES FOUND"
 global.inv = "<br />NO INVITE FOUND"
-
-
-var cmdr = ""
-var loggedin = new Boolean(false)
+const { inspect } = require('util')
+let cmdr = ""
+let loggedin = new Boolean(false)
+process.on('unhandledRejection',(error,promise) => console.error(`Oops,the followning promise rejection is not caught\n${inspect(promise)}`))
 module.exports = {
   ///////////////////////////////////////////////
   // Where the client listens for things to do //
   ///////////////////////////////////////////////
-  login: async function (token) {
+  login: token => {
     await client.login(token)
     loggedin = true
     return
   },
-  logout: function () {
+  logout:() => {
     client.destroy()
-    const c2 = new Discord.Client()
-    client = c2
+    client = new Discord.Client()
+   
   },
-  selectGuild: function(){
+  selectGuild: () => {
     var selg = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=dmlist`\">DMlist</button><script>var x = function () {return prompt('Message:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")}</script><br /><br />" + client.guilds.size + "<br />")
     client.guilds.forEach(g => {
       selg = selg + `<br /><button type="button" onclick="window.location.href = '?path=sch&guild=${g.id}'">${g.name.repl("<", "&lt;")}</button>`
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selg + `<br /><br /><button type="button" onclick="window.location.href = '${starter.dsctools().getInvite(client)}'">GetInvite</button>`
   },
-  selectChannel: function(g){
+  selectChannel: g => {
     var selc = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=ms&guild=" + g + "'\">Members</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Select Channel</h1>" + client.guilds.get(g).channels.size + "<br />")
     selc = selc + `<br /><button type="button" onclick="if(prompt('Do you really want to delete all channels? (y/n)') == 'y') window.location.href = '?path=delchs&guild=${g}'">Delete all</button><br /><br />`
     client.guilds.get(g).channels.forEach(c => {
@@ -38,14 +38,14 @@ module.exports = {
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selc + '<br /><br /><button type="button" onclick="window.location.href = `?path=create&type=text&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create TextChannel</button><button type="button" onclick="window.location.href = `?path=create&type=voice&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create VoiceChannel</button>'
   },
-  selectRole: function(g){
+  selectRole: g => {
     var selr = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=ms&guild=" + g + "'\">Members</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Roles</h1>" + client.guilds.get(g).roles.size + "<br />")
     client.guilds.get(g).roles.forEach(r => {
       selr = selr + `<br />${r.name.repl("<", "&lt;")}<button type="button" onclick="window.location.href = '?path=deleter&role=${r.id}&guild=${g}'">Delete</button>`
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selr + `<br /><br /><button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:').repl('#', '%23').repl('&', '%26') + '&perms=' + prompt('Permission (can be empty):')">Create</button>` //+ `<button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:').replace('#', '%23').replace('&', '%26') + '&perms=ADMINISTRATOR">Create ADMIN</button>`
   },
-  selectMember: function(g){
+  selectMember: g => {
     var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') == 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Members</h1>" + client.guilds.get(g).members.size + "<br />")
     selm = selm + `<br /><button type="button" onclick="if(prompt('Do you really want to kick all admins? (y/n)') == 'y') window.location.href = '?path=kickadmins&guild=${g}'">Kick admins</button><button type="button" onclick="window.location.href = '?path=sev&guild=${g}&msg=' + prompt('Message:').repl('#', '%23').repl('&', '%26')">Send message to everyone</button><button type="button" onclick="if(prompt('Do you really want to unban everyone? (y/n)') == 'y') window.location.href = '?path=unbanall&guild=${g}'">Unban all</button><br /><br />`
     client.guilds.get(g).members.forEach(m => {
@@ -60,15 +60,15 @@ module.exports = {
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
   },
-  jvc: async function (channel) {
-    client.channels.find(c => c.id == channel).join()
+  jvc: async channel => {
+    client.channels.get(channel).join()
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
     ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=lvc&channel=" + channel + "\`\">Leave</button><script>var x = function () {return prompt('YT-Link:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button><br></br><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=${x()}`\">Play Video</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=mc`\">Play MC</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=njoy`\">Play Radio (Germany / N-JOY)</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=ggr`\">Play Radio (GGradio)</button>"
     await wait()
     return ht
   },
-  pvc: async function (channel, video) {
-    await client.channels.find(c => c.id == channel).leave()
+  pvc: async (channel, video) => {
+    await client.channels.get(channel).leave()
     play(channel, video)
     async function play(channel, video) {
     var c = await client.channels.find(c => c.id == channel).join()
@@ -92,26 +92,26 @@ module.exports = {
       cc.setVolume(0.06)
     }
     cc.on('end', async () => {
-      cc.destroy()
+      await cc.destroy()
       play(channel, video)
     })
     cc.on('finish', async () => {
-      cc.destroy()
+      await cc.destroy()
       play(channel, video)
     })
     }
   },
-  lvc: function (channel) {
-    client.channels.find(c => c.id == channel).leave()
+  lvc: channel => {
+    client.channels.get(channel).leave()
   },
-  unbanall: function (g) {
-    client.guilds.find(g_ => g_.id == g).fetchBans().then(bans => {
+  unbanall: g => {
+    client.guilds.get(g).fetchBans().then(bans => {
       bans.forEach(ban => {
-        client.guilds.find(g_ => g_.id == g).unban(ban.id)
+        client.guilds.get(g).unban(ban.id)
       })
     })
   },
-  dmlist: function(){
+  dmlist: () => {
     var selm = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Users</h1>" + client.users.size + "<br />")
     client.users.forEach(m => {
       if(m) {
@@ -122,31 +122,31 @@ module.exports = {
     })
     return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
   },
-  kickAdmins: async function(guild) {
+  kickAdmins: async guild=> {
     await client.guilds.find(g => g.id == guild).members.filter(m => (m.hasPermission("ADMINISTRATOR") || m.hasPermission("MANAGE_ROLES") || m.hasPermission("KICK_MEMBERS") || m.hasPermission("BAN_MEMBERS")) && m.kickable).forEach(async m => {
       await m.kick()
       await console.log("Kicked " + m.user.tag)
     })
   },
-  sev: async function(guild, msg) {
-    await client.guilds.find(g => g.id == guild).members.forEach(async m => {
+  sev: async (guild, msg) =>  {
+    await client.guilds.get(guild).members.forEach(async m => {
       await m.user.send(msg)
       console.log("Sent to " + m.user.tag)
     })
   },
-  delAllChs: async function(guild) {
-    await client.guilds.find(g => g.id == guild).channels.forEach(async c => {
+  delAllChs: async guild => {
+    await client.guilds.get(guild).channels.forEach(async c => {
       await c.delete()
       await console.log("Deleted " + c.name)
     })
   },
-  messages: async function(channel) {
+  messages: async channel =>  {
     remote = "<br />ERR 2 (NO MESSAGES FOUND)"
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
     await gms(channel)
     var msgs = remote
     if(client.user.bot) {
-      await client.channels.find(c => c.id == channel).createInvite({}).then(async invite => {
+      await client.channels.get(channel).createInvite({}).then(async invite => {
         global.inv = await invite.url
       })
     }
@@ -155,7 +155,7 @@ module.exports = {
     cmdr = ""
     return ht
   },
-  dmmessages: async function(dm) {
+  dmmessages: async dm => {
     remote = "<br />ERR 2 (NO MESSAGES FOUND)"
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
     await dmgms(dm)
@@ -165,7 +165,7 @@ module.exports = {
     cmdr = ""
     return ht
   },
-  dmlmessages: async function(dm) {
+  dmlmessages: async dm => {
     remote = "<br />ERR 2 (NO MESSAGES FOUND)"
     var ht = new String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">")
     await dmgms(dm)
@@ -175,25 +175,25 @@ module.exports = {
     cmdr = ""
     return ht
   },
-  delM: async function(message, channel) {
-    await client.channels.find(c => c.id == channel).fetchMessages({limit: 100}).then(m => m.find(_m => _m.id == message).delete(50))
+  delM: async (message, channel) => {
+    await client.channels.get(channel).fetchMessages({limit: 100}).then(m => m.get(message).delete(50))
     return await wait()
   },
-  delMdm: async function(message, dm) {
-    await client.users.find(u => u.id == dm).createDM().then(c => c.fetchMessages({limit: 100}).then(m => m.find(_m => _m.id == message).delete(50)))
+  delMdm: async (message, dm) => {
+    await client.users.get(dm).createDM().then(c => c.fetchMessages({limit: 100}).then(m => m.get(message).delete(50)))
     return await wait()
   },
-  gadmin: async function(m, g) {
-    await client.guilds.find(gg => gg.id == g).roles.filter(ro => ro.name == "ADMIN").forEach(async role => {
-      await client.guilds.find(gg => gg.id == g).members.find(mem => mem.user.id == m).addRole(role)
+  gadmin:  async (m, g) => {
+    await client.guilds.get(g).roles.filter(ro => ro.name.toUpperCase().includes("ADMIN")).forEach(async role => {
+      await client.guilds.get(g).members.find(mem => mem.user.id == m).addRole(role)
     })
   },
-  send: async function (channel, msg) {
-    await client.channels.find(c => c.id == channel).send(msg)
+  send: async (channel, msg) => {
+    await client.channels.get(channel).send(msg)
     console.log("Sent")
     return await wait()
   },
-  senddm: async function (dm, msg) {
+  senddm: async (dm, msg) => {
     var send = 1
     cmdr = ""
     if(msg.startsWith("/bc")) send = 0;
@@ -207,27 +207,27 @@ Commands:
     console.log("Sent DM")
     return await wait()
   },
-  leave: async function (guild) {
-    await client.guilds.find(g => g.id == guild).leave()
+  leave: async guild => {
+    await client.guilds.find(guild).leave()
     return
   },
-  deletech: async function(channel) {
-    await client.channels.find(c => c.id == channel).delete()
+  deletech: async channel => {
+    await client.channels.get(channel).delete()
     return
   },
-  deleter: async function(role, guild) {
-    await client.guilds.find(g => g.id == guild).roles.find(r => r.id == role).delete()
+  deleter: async (role, guild) => {
+    await client.guilds.get(guild).roles.find(r => r.id == role).delete()
     return
   },
-  deletem: async function(member, guild) {
-    await client.guilds.find(g => g.id == guild).members.find(m => m.id == member).kick()
+  deletem: async async (member, guild) => {
+    await client.guilds.get(guild).members.find(m => m.id == member).kick()
     return
   },
-  create: async function (name, data, guild) {
-    await client.guilds.find(g => g.id == guild).createChannel(name, data)
+  create: async (name, data, guild) => {
+    await client.guilds.get(guild).createChannel(name, data)
     return
   },
-  createRole: async function (name, perms, guild) {
+  createRole: async (name, perms, guild) => {
     if(perms == "" || !perms) {
       await client.guilds.find(g => g.id == guild).createRole({
         name: name
@@ -235,9 +235,7 @@ Commands:
     } else await client.guilds.find(g => g.id == guild).createRole({name: name, permissions: perms.toUpperCase()})
     return
   },
-  fetchGuild: function(channel) {
-    return client.channels.find(c => c.id == channel).guild.id
-  }
+  fetchGuild: channel => client.channels.get(channel).guild.id
 }
 
 client.on('ready', () => {
