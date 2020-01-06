@@ -219,7 +219,7 @@ Commands:
     await client.guilds.get(guild).roles.find(r => r.id == role).delete()
     return
   },
-  deletem: async async (member, guild) => {
+  deletem: async (member, guild) => {
     await client.guilds.get(guild).members.find(m => m.id == member).kick()
     return
   },
