@@ -6,7 +6,7 @@ global.inv = "<br />NO INVITE FOUND"
 const { inspect } = require('util')
 let cmdr = ""
 let loggedin = new Boolean(false)
-process.on('unhandledRejection',(error,promise) => console.error(`Oops,the followning promise rejection is not caught\n${inspect(promise)}`))
+process.on('unhandledRejection',(error,promise) => console.error(`Error: Unhandled promise rejection: \n${inspect(promise)}`))
 module.exports = {
   ///////////////////////////////////////////////
   // Where the client listens for things to do //
