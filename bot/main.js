@@ -11,7 +11,7 @@ module.exports = {
   ///////////////////////////////////////////////
   // Where the client listens for things to do //
   ///////////////////////////////////////////////
-  login: token => {
+  login: async token => {
     await client.login(token)
     loggedin = true
     return
