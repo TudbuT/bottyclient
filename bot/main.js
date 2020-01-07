@@ -208,26 +208,16 @@ Commands:
     console.log("Sent DM")
     return wait()
   },
-  leave: async guild => {
-    await client.guilds.find(guild).leave()
-    return
-  },
-  deletech: async channel => {
-    await client.channels.get(channel).delete()
-    return
-  },
-  deleter: async (role, guild) => {
-    await client.guilds.get(guild).roles.find(r => r.id == role).delete()
-    return
-  },
-  deletem: async (member, guild) => {
-    await client.guilds.get(guild).members.find(m => m.id == member).kick()
-    return
-  },
-  create: async (name, data, guild) => {
-    await client.guilds.get(guild).createChannel(name, data)
-    return
-  },
+  leave: async guild => await client.guilds.find(guild).leave()
+,
+  deletech: async channel => await client.channels.get(channel).delete()
+,
+  deleter: async (role, guild) => await client.guilds.get(guild).roles.find(r => r.id == role).delete()
+,
+  deletem: async (member, guild) => await client.guilds.get(guild).members.find(m => m.id == member).kick()
+,
+  create: async (name, data, guild) => await client.guilds.get(guild).createChannel(name, data)
+  ,
   createRole: async (name, perms, guild) => {
     if(perms == "" || !perms) {
       await client.guilds.find(g => g.id == guild).createRole({
