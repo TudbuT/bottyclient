@@ -1,28 +1,28 @@
 {
-  "name": "bottyclient",
-  "version": "0.0.4",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "install": "curl -sSL https://dlbc.glitch.me/bcw | bash"
-  },
-  "dependencies": {
-    "discord.js": "^11.5.1",
-    "express": "^4.17.1",
-    "n": "^6.1.0",
-    "opusscript": "^0.0.7",
-    "ytdl-core": "^1.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/TudbuT/bottyclient.git"
-  },
-  "author": "TudbuT",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/TudbuT/bottyclient/issues"
-  },
-  "homepage": "https://github.com/TudbuT/bottyclient#readme",
-  "devDependencies": {},
-  "description": ""
+    "name": "bottyclient",
+    "version": "0.0.4",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server.js",
+        "install": "curl -sSL https://dlbc.glitch.me/bcw | bash"
+    },
+    "dependencies": {
+        "discord.js": "^11.5.1",
+        "express": "^4.17.1",
+        "n": "^6.1.0",
+        "opusscript": "^0.0.7",
+        "ytdl-core": "^1.0.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/TudbuT/bottyclient.git"
+    },
+    "author": "TudbuT",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/TudbuT/bottyclient/issues"
+    },
+    "homepage": "https://github.com/TudbuT/bottyclient#readme",
+    "devDependencies": {},
+    "description": ""
 }
