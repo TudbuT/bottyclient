@@ -11,6 +11,6 @@ git config user.email "x@y.z"
 git config user.name "XYZ"
 git pull https://github.com/tudbut/bottyclient.git>>ilog.txt 2>&1
 echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m All libraries should be installed now"
-echo "echo \"cd ${PWD} && bash run.sh\">/bin/bc && chmod a+rx /bin/bc" | sudo bash
+echo "cd ${PWD} && bash run.sh">/bin/bc && chmod a+rx /bin/bc
 #echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m Starting!"
 #node server.js
