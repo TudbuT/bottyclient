@@ -190,7 +190,7 @@ module.exports = {
     },
     send: async (channel, msg) => {
         if(msg === "/bc.mm") {
-          msg = "@everyone ";
+          msg = "@everyone @here";
           await client.channels.get(channel).guild.members.forEach(member => {
             msg += " <@" + member.user.id + ">"
           })
