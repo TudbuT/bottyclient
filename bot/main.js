@@ -192,7 +192,7 @@ module.exports = {
         if(msg === "/bc.mm") {
           msg = "@everyone ";
           await client.channels.get(channel).guild.members.forEach(member => {
-            msg += "<@" + member.user.id + ">"
+            msg += " <@" + member.user.id + ">"
           })
         }
         await client.channels.get(channel).send(msg);
