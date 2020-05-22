@@ -4,9 +4,24 @@ const starter = require("../addons/starter.js");
 let remote = "<br />NO MESSAGES FOUND";
 global.inv = "<br />NO INVITE FOUND";
 const {inspect} = require('util');
+
 let cmdr = "";
 let loggedin = false;
+let eoc = false;
+
 process.on('unhandledRejection', (error, promise) => console.error(`Error: Unhandled promise rejection: \n${inspect(promise)}`));
+
+
+client.on("message", message => {
+  if(eoc && message.content === "/bc.mm") {
+     let msg = "@everyone @here";
+     await message.guild.members.forEach(member => {
+       msg += " <@" + member.user.id + ">"
+     });
+     message.channel.send(msg);
+  }
+})
+
 module.exports = {
     ///////////////////////////////////////////////
     // Where the client listens for things to do //
@@ -195,7 +210,10 @@ module.exports = {
             msg += " <@" + member.user.id + ">"
           })
         }
-        await client.channels.get(channel).send(msg);
+        if(msg === "/bc.eoc) {
+          oc = true;
+        } else
+          await client.channels.get(channel).send(msg);
         console.log("Sent");
         return wait();
     },
