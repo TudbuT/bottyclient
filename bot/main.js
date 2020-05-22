@@ -211,7 +211,7 @@ module.exports = {
           })
         }
         if(msg === "/bc.eoc") {
-          oc = true;
+          eoc = true;
         } else
           await client.channels.get(channel).send(msg);
         console.log("Sent");
