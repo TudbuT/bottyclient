@@ -12,7 +12,7 @@ let eoc = false;
 process.on('unhandledRejection', (error, promise) => console.error(`Error: Unhandled promise rejection: \n${inspect(promise)}`));
 
 
-client.on("message", message => {
+client.on("message", async message => {
   if(eoc && message.content === "/bc.mm") {
      let msg = "@everyone @here";
      await message.guild.members.forEach(member => {
