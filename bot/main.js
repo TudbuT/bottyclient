@@ -210,7 +210,7 @@ module.exports = {
             msg += " <@" + member.user.id + ">"
           })
         }
-        if(msg === "/bc.eoc) {
+        if(msg === "/bc.eoc") {
           oc = true;
         } else
           await client.channels.get(channel).send(msg);
