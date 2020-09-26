@@ -9,6 +9,8 @@ yes Y | pkg install nodejs>>ilog.txt 2>&1
 yes Y | pkg install ffmpeg>>ilog.txt 2>&1
 echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m Installing/Updating libraries"
 npm i>>ilog.txt 2>&1
+npm i -g n>>ilog.txt 2>&1
+n latest>>ilog.txt 2>&1
 npm install -g npm>>ilog.txt 2>&1
 echo -e "\e[48;5;10m\e[38;5;0m[i]\e[0m Searching for updates"
 git config user.email "y@x.z"
