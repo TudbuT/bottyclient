@@ -1,3 +1,5 @@
+# Celebrating 32 stars!!! :tada:
+
 ## A simple Discord client that uses bot-tokens (users supported too) - Have fun being your bot!
 
 How to: Look at the Wiki [up there](https://github.com/tudbut/bottyclient/wiki)
