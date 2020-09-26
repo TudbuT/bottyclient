@@ -11,7 +11,7 @@
         "express": "^4.17.1",
         "n": "^6.1.0",
         "opusscript": "^0.0.7",
-        "ytdl-core": "^1.0.0"
+        "ytdl-core": "^3.2.2"
     },
     "repository": {
         "type": "git",
