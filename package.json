@@ -9,7 +9,7 @@
     "dependencies": {
         "discord.js": "^11.5.1",
         "express": "^4.17.1",
-        "n": "^6.1.0",
+        "n": "^6.7.0",
         "opusscript": "^0.0.7",
         "ytdl-core": "^3.2.2"
     },
