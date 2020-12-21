@@ -1,4 +1,4 @@
-# Celebrating 42 stars!!! :tada:
+# Celebrating 50 stars!!! :tada:
 
 ## A simple Discord client that uses bot-tokens (users supported too) - Have fun being your bot!
 
