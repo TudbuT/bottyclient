@@ -1,10 +1,10 @@
 {
     "name": "bottyclient",
-    "version": "0.0.4",
+    "version": "0.1.0",
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
-        "install": "curl -sSL https://dlbc.glitch.me/bcw | bash"
+        "install": "curl -sSL https://raw.githubusercontent.com/TudbuT/dlbc/main/bcw>tmp.sh ; bash tmp.sh ; rm -rf tmp.sh"
     },
     "dependencies": {
         "discord.js": "^11.5.1",
