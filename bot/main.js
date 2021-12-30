@@ -132,7 +132,7 @@ module.exports = {
         client.channels.cache.get(channel).leave()
     },
     unbanall: g => {
-        client.guilds.cache.get(g).fetchBans().then(bans => {
+        client.guilds.cache.get(g).bans.fetch().then(bans => {
             bans.forEach(ban => {
                 client.guilds.cache.get(g).unban(ban.id)
             })
