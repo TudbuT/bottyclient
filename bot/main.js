@@ -45,8 +45,11 @@ module.exports = {
     selectGuild: () => {
         let selg = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=dmlist`\">DMlist</button><script></script><br /><br />" + client.guilds.cache.size + "<br />";
         client.guilds.cache.forEach(g => {
+            // Fetch channels of g
             g.channels.fetch();
+            // Fetch members of g
             g.members.fetch();
+            // Fetch roles of g
             g.roles.fetch();
             try {
                 selg = selg + `<br /><button type="button" onclick="window.location.href = '?path=sch&guild=${g.id}'">${g.name.repl("<", "&lt;")}</button>`
@@ -79,8 +82,8 @@ module.exports = {
                 var isBot = "";
                 if (m.user.bot) isBot = "[BOT]";
                 var isOwner = "";
-                if (!m.guild.owner) console.error("This guild has no owner");
-                else if (m.user.id === m.guild.owner.user.id) isOwner = "[OWNER]";
+                if (!m.guild.members.owner) console.error("This guild has no owner");
+                else if (m.user.id === m.guild.members.owner.user.id) isOwner = "[OWNER]";
                 selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.user.id}'">${m.user.tag.repl("<", "&lt;")}${isBot}${isOwner}</button><button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button><button type="button" onclick="window.location.href = '?path=giveadmin&member=${m.user.id}&guild=${g}'">Give admin</button>`
             }
         });
@@ -90,7 +93,6 @@ module.exports = {
         client.channels.cache.get(channel).join();
         let ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
         ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=lvc&channel=" + channel + "\`\">Leave</button><script>const x = function () {return prompt('YT-Link:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")};</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button><br/><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=${x()}`\">Play Video</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=mc`\">Play MC</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=njoy`\">Play Radio (Germany / N-JOY)</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=ggr`\">Play Radio (GGradio)</button>";
-        await wait();
         return ht
     },
     pvc: async (channel, video) => {
@@ -132,9 +134,10 @@ module.exports = {
         client.channels.cache.get(channel).leave()
     },
     unbanall: g => {
+        // Fetch bans of client.guilds.cache.get(g)
         client.guilds.cache.get(g).bans.fetch().then(bans => {
             bans.forEach(ban => {
-                client.guilds.cache.get(g).bans.remove(ban.id)
+                client.guilds.cache.get(g).bans.unban(ban.id)
             })
         })
     },
@@ -178,7 +181,6 @@ module.exports = {
             })
         }
         ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=msgs&channel=" + channel + "\`\">Reload</button><script>var x = function () {return prompt('Message:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button>" + "<br /><br />" + await global.inv + msgs;
-        await wait();
         cmdr = "";
         return ht
     },
@@ -188,7 +190,6 @@ module.exports = {
         await dmgms(dm);
         var msgs = remote;
         ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=senddm&dm=" + dm + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=dm&dm=" + dm + "\`\">Reload</button><script>var x = function () {return prompt('Message:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button>" + cmdr + msgs;
-        await wait();
         cmdr = "";
         return ht
     },
@@ -198,17 +199,16 @@ module.exports = {
         await dmgms(dm);
         var msgs = remote;
         ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=senddml&dm=" + dm + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=dml&dm=" + dm + "\`\">Reload</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=dmlist'\">Back to list</button>" + cmdr + msgs;
-        await wait();
         cmdr = "";
         return ht
     },
     delM: async (message, channel) => {
+        // Fetch messages of client.channels.cache.get(c)
         await client.channels.cache.get(channel).messages.fetch(message).then(m => m.delete(50));
-        return wait();
     },
     delMdm: async (message, dm) => {
+        // Fetch messages of client.users.cache.get(dm).createDM()
         await client.users.cache.get(dm).createDM().then(c => c.messages.fetch(message).then(m => m.delete(50)));
-        return wait();
     },
     gadmin: async (m, g) => {
         let done = false
@@ -235,7 +235,6 @@ module.exports = {
         } else
           await client.channels.cache.get(channel).send(msg);
         console.log("Sent");
-        return wait();
     },
     senddm: async (dm, msg) => {
         var send = 1;
@@ -249,7 +248,6 @@ Commands:
 </pre></code>`;
         if (send === 1) await client.users.cache.find(u => u.id === dm).send(msg);
         console.log("Sent DM");
-        return wait();
     },
     leave: async guild => {
         await client.guilds.cache.find(guild).leave();
@@ -290,6 +288,7 @@ var mcon = "ERR";
 
 async function gms (channel) { // return list of messages
     var x = "<br /><br /><br />Messages: <br /><br />";
+    // Fetch messages of c
     await client.channels.cache.find(c => c.id === channel).messages.fetch({limit: 50}).then(async ms => {
         await ms.forEach(m => {
             mcon = m.content;
@@ -321,15 +320,13 @@ ${d}
 
             remote = x
         });
-        if(remote) {
-            await wait()
-        }
         return remote
     })
 }
 async function dmgms (dm) { // return list of dm messages
     var x = "<br /><br /><br />Messages: <br /><br />";
     await client.users.cache.find(u => u.id === dm).createDM().then(async c => {
+        // Fetch messages of c
         await c.messages.fetch({limit: 50}).then(async ms => {
             await ms.forEach(m => {
                 var embeds = "";
@@ -349,9 +346,6 @@ ${d}
                 x = x + "<br /><br />" + new Date(m.createdTimestamp).toLocaleDateString("en-US") + (m.editedTimestamp ?  " (edited) " : " ") + m.author.tag + " -- " + m.content.repl("<", "&lt").repl("\n", "<br />") + embeds + `<button type="button" onclick="window.location.href = '?path=delMdm&dm=${dm}&message=${m.id}'">Delete</button>`;
                 remote = x
             });
-            if (remote) {
-                await wait()
-            }
             return remote
         })
     })
@@ -359,11 +353,6 @@ ${d}
 
 
 
-function wait () {
-    for (var delay = 0; delay < 100; delay++) {
-
-    }
-} // just for timings
 function maut(em) {
     if (em.embeds[0].author)
         if (em.embeds[0].author.name) {
@@ -372,6 +361,7 @@ function maut(em) {
     else return "";
 }
 
+// What did i think when i made this
 String.prototype.repl = function (o, n) {
     var result = this;
     result = result.split(o);
