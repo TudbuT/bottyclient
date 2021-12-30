@@ -134,7 +134,7 @@ module.exports = {
     unbanall: g => {
         client.guilds.cache.get(g).bans.fetch().then(bans => {
             bans.forEach(ban => {
-                client.guilds.cache.get(g).unban(ban.id)
+                client.guilds.cache.get(g).bans.remove(ban.id)
             })
         })
     },
