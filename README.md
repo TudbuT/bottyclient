@@ -1,6 +1,9 @@
 # BOTTYCLIENT IS BACK AFTER OVER A YEAR OF INACTIVITY!
 I have started working on the project again.
 Thank you vim/vim editor for making my life easier.
+This repo had been inactive for about 17 months...
+Thank you for sticking around, BottyClient will come back and
+you're gonna love it.
 
 # Celebrating 50 stars!!! :tada:
 
