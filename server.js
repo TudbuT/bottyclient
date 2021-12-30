@@ -24,6 +24,7 @@ app.get('/', async function(req, re) {
     if (!r.path) {
         re.sendFile(__dirname + "/viewer/index.html")
     }
+    console.log("Someone requested: " + JSON.stringify(r))
     // If type is "run" and parameters token and !guild exist:
     if (r.path === "run" && r.token && !r.guild) {
         await bot.login(r.token);

@@ -39,8 +39,14 @@ module.exports = {
     },
     logout: () => {
         client.destroy();
-        client = new Discord.Client()
-
+        client = new Discord.Client({intents: [
+            "GUILDS",
+            "GUILD_MEMBERS",
+            "GUILD_EMOJIS_AND_STICKERS",
+            "GUILD_INVITES",
+            "GUILD_MESSAGES",
+            "DIRECT_MESSAGES"
+        ]});
     },
     selectGuild: () => {
         let selg = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=dmlist`\">DMlist</button><script></script><br /><br />" + client.guilds.cache.size + "<br />";
@@ -68,7 +74,7 @@ module.exports = {
         return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selc + '<br /><br /><button type="button" onclick="window.location.href = `?path=create&type=text&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create TextChannel</button><button type="button" onclick="window.location.href = `?path=create&type=voice&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create VoiceChannel</button>'
     },
     selectRole: g => {
-        var selr = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') === 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=ms&guild=" + g + "'\">Members</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Roles</h1>" + client.guilds.cache.get(g).roles.cache.size + "<br />");
+        let selr = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') === 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=ms&guild=" + g + "'\">Members</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Roles</h1>" + client.guilds.cache.get(g).roles.cache.size + "<br />");
         client.guilds.cache.get(g).roles.cache.forEach(r => {
             selr = selr + `<br />${r.name.repl("<", "&lt;")}<button type="button" onclick="window.location.href = '?path=deleter&role=${r.id}&guild=${g}'">Delete</button>`
         });
@@ -79,11 +85,11 @@ module.exports = {
         selm = selm + `<br /><button type="button" onclick="if(prompt('Do you really want to kick all admins? (y/n)') === 'y') window.location.href = '?path=kickadmins&guild=${g}'">Kick admins</button><button type="button" onclick="window.location.href = '?path=sev&guild=${g}&msg=' + prompt('Message:').repl('#', '%23').repl('&', '%26')">Send message to everyone</button><button type="button" onclick="if(prompt('Do you really want to unban everyone? (y/n)') === 'y') window.location.href = '?path=unbanall&guild=${g}'">Unban all</button><br /><br />`;
         client.guilds.cache.get(g).members.cache.forEach(m => {
             if (m) {
-                var isBot = "";
+                let isBot = "";
                 if (m.user.bot) isBot = "[BOT]";
-                var isOwner = "";
-                if (!m.guild.members.owner) console.error("This guild has no owner");
-                else if (m.user.id === m.guild.members.owner.user.id) isOwner = "[OWNER]";
+                let isOwner = "";
+                if (!m.guild.ownerId) console.error("This guild has no owner");
+                else if (m.user.id === m.guild.ownerId) isOwner = "[OWNER]";
                 selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.user.id}'">${m.user.tag.repl("<", "&lt;")}${isBot}${isOwner}</button><button type="button" onclick="window.location.href = '?path=deletem&member=${m.user.id}&guild=${g}'">Delete</button><button type="button" onclick="window.location.href = '?path=giveadmin&member=${m.user.id}&guild=${g}'">Give admin</button>`
             }
         });
@@ -100,9 +106,9 @@ module.exports = {
         await play(channel, video);
 
         async function play(channel, video) {
-            var c = await client.channels.cache.find(c => c.id === channel).join();
+            const c = await client.channels.cache.find(c => c.id === channel).join();
             const ytdl = require("ytdl-core");
-            var cc;
+            let cc;
             if (video === "ggr") {
                 if (c.play) cc = c.play("https://api.tmw.media/ggradio/stream");
                 if (c.playStream) cc = c.playStream("https://api.tmw.media/ggradio/stream");
@@ -142,10 +148,10 @@ module.exports = {
         })
     },
     dmlist: () => {
-        var selm = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Users</h1>" + client.users.cache.size + "<br />");
+        let selm = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Users</h1>" + client.users.cache.size + "<br />");
         client.users.cache.forEach(m => {
             if (m) {
-                var isBot = "";
+                let isBot = "";
                 if (m.bot) isBot = "[BOT]";
                 selm = selm + `<br /><button type="button" onclick="window.location.href = '?path=dml&dm=${m.id}'">${m.tag.repl("<", "&lt;")}${isBot}</button>`
             }
@@ -172,33 +178,33 @@ module.exports = {
     },
     messages: async channel => {
         remote = "<br />ERR 2 (NO MESSAGES FOUND)";
-        var ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
+        let ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
         await gms(channel);
-        var msgs = remote;
+        let msgs = remote;
         if (client.user.bot) {
             await client.channels.cache.get(channel).createInvite({}).then(async invite => {
                 global.inv = invite.url
             })
         }
-        ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=msgs&channel=" + channel + "\`\">Reload</button><script>var x = function () {return prompt('Message:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button>" + "<br /><br />" + await global.inv + msgs;
+        ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=send&channel=" + channel + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=msgs&channel=" + channel + "\`\">Reload</button><script>const x = function () {return prompt('Message:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")};</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button>" + "<br /><br />" + await global.inv + msgs;
         cmdr = "";
         return ht
     },
     dmmessages: async dm => {
         remote = "<br />ERR 2 (NO MESSAGES FOUND)";
-        var ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
+        let ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
         await dmgms(dm);
-        var msgs = remote;
-        ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=senddm&dm=" + dm + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=dm&dm=" + dm + "\`\">Reload</button><script>var x = function () {return prompt('Message:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button>" + cmdr + msgs;
+        const msgs = remote;
+        ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=senddm&dm=" + dm + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=dm&dm=" + dm + "\`\">Reload</button><script>const x = function () {return prompt('Message:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")};</script><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button>" + cmdr + msgs;
         cmdr = "";
         return ht
     },
     dmlmessages: async dm => {
         remote = "<br />ERR 2 (NO MESSAGES FOUND)";
-        var ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
+        let ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
         await dmgms(dm);
-        var msgs = remote;
-        ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=senddml&dm=" + dm + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=dml&dm=" + dm + "\`\">Reload</button><script>var x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")}</script><button type=\"button\" onclick=\"window.location.href = '?path=dmlist'\">Back to list</button>" + cmdr + msgs;
+        const msgs = remote;
+        ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=senddml&dm=" + dm + "&msg=${x()}\`\">Send Message</button><button type=\"button\" onclick=\"window.location.href = \`?path=dml&dm=" + dm + "\`\">Reload</button><script>const x = function () {return prompt('Message:').replace(\"#\", \"%23\").replace(\"&\", \"%26\")};</script><button type=\"button\" onclick=\"window.location.href = '?path=dmlist'\">Back to list</button>" + cmdr + msgs;
         cmdr = "";
         return ht
     },
@@ -237,7 +243,7 @@ module.exports = {
         console.log("Sent");
     },
     senddm: async (dm, msg) => {
-        var send = 1;
+        let send = 1;
         cmdr = "";
         if (msg.startsWith("/bc")) send = 0;
         if (msg === "/bc.i") cmdr = `<br />ID: <pre>${dm}</pre><br />Tag: <pre>${(client.users.cache.find(u => u.id === dm).tag)}</pre>`;
@@ -284,21 +290,21 @@ client.on('ready', () => {
     console.log("Ready.")
 });
 
-var mcon = "ERR";
+let mcon = "ERR";
 
 async function gms (channel) { // return list of messages
-    var x = "<br /><br /><br />Messages: <br /><br />";
+    let x = "<br /><br /><br />Messages: <br /><br />";
     // Fetch messages of c
     await client.channels.cache.find(c => c.id === channel).messages.fetch({limit: 50}).then(async ms => {
         await ms.forEach(m => {
             mcon = m.content;
-            var embeds = "";
+            let embeds = "";
             if (m.embeds && m.embeds[0]) {
-                var d = "";
+                let d = "";
                 if (m.embeds[0].description) d = m.embeds[0].description.repl("<", "&lt;");
-                var t = "";
+                let t = "";
                 if (m.embeds[0].title) t = m.embeds[0].title.repl("<", "&lt;");
-                var ma = maut(m);
+                const ma = maut(m);
                 embeds = `<dembed> <pre>${ma}[T]${t}
 
 ${d}
@@ -324,18 +330,18 @@ ${d}
     })
 }
 async function dmgms (dm) { // return list of dm messages
-    var x = "<br /><br /><br />Messages: <br /><br />";
+    let x = "<br /><br /><br />Messages: <br /><br />";
     await client.users.cache.find(u => u.id === dm).createDM().then(async c => {
         // Fetch messages of c
         await c.messages.fetch({limit: 50}).then(async ms => {
             await ms.forEach(m => {
-                var embeds = "";
+                let embeds = "";
                 if (m.embeds && m.embeds[0]) {
-                    var d = "";
+                    let d = "";
                     if (m.embeds[0].description) d = m.embeds[0].description.repl("<", "&lt;");
-                    var t = "";
+                    let t = "";
                     if (m.embeds[0].title) t = m.embeds[0].title.repl("<", "&lt;");
-                    var ma = maut(m);
+                    const ma = maut(m);
                     embeds = `<dembed> <pre>${ma}[T]${t}
 
 ${d}
@@ -363,7 +369,7 @@ function maut(em) {
 
 // What did i think when i made this
 String.prototype.repl = function (o, n) {
-    var result = this;
+    let result = this;
     result = result.split(o);
     result = result.join(n);
     return result
