@@ -1,3 +1,7 @@
+# BOTTYCLIENT IS BACK AFTER OVER A YEAR OF INACTIVITY!
+I have started working on the project again.
+Thank you vim/vim editor for making my life easier.
+
 # Celebrating 50 stars!!! :tada:
 
 ## A simple Discord client that uses bot-tokens (users supported too) - Have fun being your bot!
