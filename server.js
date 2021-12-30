@@ -26,7 +26,7 @@ app.get('/', async function(req, re) {
     }
     if (r.path === "run" && r.token && !r.guild) {
         await bot.login(r.token);
-        re.send(v + await bot.selectGuild() + style)
+        setTimeout(async _=>re.send(v + await bot.selectGuild() + style), 1000)
     }
     if (r.path === "sch" && r.guild) {
         re.send(v + await bot.selectChannel(r.guild) + style)
