@@ -256,8 +256,7 @@ Commands:
         console.log("Sent DM");
     },
     leave: async guild => {
-        await client.guilds.cache.find(guild).leave();
-
+        await client.guilds.cache.get(guild).leave();
     },
     deletech: async channel => {
         await client.channels.cache.get(channel).delete();
