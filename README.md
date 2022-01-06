@@ -7,7 +7,7 @@ you're gonna love it.
 
 # Celebrating 50 stars!!! :tada:
 
-## A simple Discord client that uses bot-tokens (users supported too) - Have fun being your bot!
+## A simple Discord client that uses bot-tokens (~~users supported too~~ (no longer, discord.js no longer allows them)) - Have fun being your bot!
 
 How to: Look at the Wiki [up there](https://github.com/tudbut/bottyclient/wiki)
 
