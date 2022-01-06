@@ -19,6 +19,7 @@ let eoc = false;
 process.on('unhandledRejection', (error, promise) => console.error(`Error: Unhandled promise rejection: \n${inspect(promise)}`));
 
 
+// This is an asynchronous function
 client.on("messageCreate", async message => {
   if(eoc && message.content === "/bc.mm") {
      let msg = "@everyone @here";
@@ -33,10 +34,13 @@ module.exports = {
     ///////////////////////////////////////////////
     // Where the client listens for things to do //
     ///////////////////////////////////////////////
+    // on request for login
+    // This is an asynchronous function
     login: async token => {
         await client.login(token);
         loggedin = true;
     },
+    // on request for logout
     logout: () => {
         client.destroy();
         client = new Discord.Client({intents: [
@@ -48,6 +52,7 @@ module.exports = {
             "DIRECT_MESSAGES"
         ]});
     },
+    // on request for selectGuild
     selectGuild: () => {
         let selg = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=dmlist`\">DMlist</button><script></script><br /><br />" + client.guilds.cache.size + "<br />";
         client.guilds.cache.forEach(g => {
@@ -63,6 +68,7 @@ module.exports = {
         });
         return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selg + `<br /><br /><button type="button" onclick="window.location.href = '${starter.dsctools().getInvite(client)}'">GetInvite</button>`
     },
+    // on request for selectChannel
     selectChannel: g => {
         let selc = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') === 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=ms&guild=" + g + "'\">Members</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Select Channel</h1>" + client.guilds.cache.get(g).channels.cache.size + "<br />";
         selc = selc + `<br /><button type="button" onclick="if(prompt('Do you really want to delete all channels? (y/n)') === 'y') window.location.href = '?path=delchs&guild=${g}'">Delete all</button><br /><br />`;
@@ -73,6 +79,7 @@ module.exports = {
         });
         return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selc + '<br /><br /><button type="button" onclick="window.location.href = `?path=create&type=GUILD_TEXT&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create TextChannel</button><button type="button" onclick="window.location.href = `?path=create&type=GUILD_VOICE&guild=' + g + '&name=${prompt(\'ChannelName:\', \'general\')}`">Create VoiceChannel</button>'
     },
+    // on request for selectRole
     selectRole: g => {
         let selr = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') === 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=ms&guild=" + g + "'\">Members</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Roles</h1>" + client.guilds.cache.get(g).roles.cache.size + "<br />");
         client.guilds.cache.get(g).roles.cache.forEach(r => {
@@ -80,6 +87,7 @@ module.exports = {
         });
         return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selr + `<br /><br /><button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:').repl('#', '%23').repl('&', '%26') + '&perms=' + prompt('Permission (can be empty):')">Create</button>` //+ `<button type="button" onclick="window.location.href = '?path=crro&guild=${g}&name=' + prompt('Name:').replace('#', '%23').replace('&', '%26') + '&perms=ADMINISTRATOR">Create ADMIN</button>`
     },
+    // on request for selectMember
     selectMember: g => {
         let selm = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"if(prompt('Do you really want to leave this guild? (y/n)') === 'y') window.location.href = '?path=leave&guild=" + g + "'\">Leave Guild</button><button type=\"button\" onclick=\"window.location.href = '?path=sch&guild=" + g + "'\">Channels</button><button type=\"button\" onclick=\"window.location.href = '?path=roles&guild=" + g + "'\">Roles</button><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Members</h1>" + client.guilds.cache.get(g).members.cache.size + "<br />");
         selm = selm + `<br /><button type="button" onclick="if(prompt('Do you really want to kick all admins? (y/n)') === 'y') window.location.href = '?path=kickadmins&guild=${g}'">Kick admins</button><button type="button" onclick="window.location.href = '?path=sev&guild=${g}&msg=' + prompt('Message:').repl('#', '%23').repl('&', '%26')">Send message to everyone</button><button type="button" onclick="if(prompt('Do you really want to unban everyone? (y/n)') === 'y') window.location.href = '?path=unbanall&guild=${g}'">Unban all</button><br /><br />`;
@@ -95,16 +103,21 @@ module.exports = {
         });
         return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
     },
+    // on request for jvc
+    // This is an asynchronous function
     jvc: async channel => {
         client.channels.cache.get(channel).join();
         let ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
         ht = '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + ht + "<button type=\"button\" onclick=\"window.location.href = \`?path=lvc&channel=" + channel + "\`\">Leave</button><script>const x = function () {return prompt('YT-Link:').repl(\"#\", \"%23\").repl(\"&\", \"%26\")};</script><button type=\"button\" onclick=\"window.location.href = '?path=clist&channel=" + channel + "'\">Back to list</button><br/><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=${x()}`\">Play Video</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=mc`\">Play MC</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=njoy`\">Play Radio (Germany / N-JOY)</button><button type=\"button\" onclick=\"window.location.href = `?path=pvc&channel=" + channel + "&video=ggr`\">Play Radio (GGradio)</button>";
         return ht
     },
+    // on request for pvc
+    // This is an asynchronous function
     pvc: async (channel, video) => {
         await client.channels.cache.get(channel).leave();
         await play(channel, video);
 
+// This is an asynchronous function
         async function play(channel, video) {
             const c = await client.channels.cache.find(c => c.id === channel).join();
             const ytdl = require("ytdl-core");
@@ -126,27 +139,32 @@ module.exports = {
                 if (c.playStream) cc = c.playStream(ytdl(video, {filter: 'audioonly'}));
                 cc.setVolume(0.06)
             }
+            // This is an asynchronous function
             cc.on('end', async () => {
                 await cc.destroy();
                 await play(channel, video)
             });
+            // This is an asynchronous function
             cc.on('finish', async () => {
                 await cc.destroy();
                 await play(channel, video)
             })
         }
     },
+    // on request for lvc
     lvc: channel => {
         client.channels.cache.get(channel).leave()
     },
+    // on request for unbanall
     unbanall: g => {
         // Fetch bans of client.guilds.cache.get(g)
         client.guilds.cache.get(g).bans.fetch().then(bans => {
             bans.forEach(ban => {
-                client.guilds.cache.get(g).bans.unban(ban.id)
+                client.guilds.cache.get(g).bans.remove(ban.user.id)
             })
         })
     },
+    // on request for dmlist
     dmlist: () => {
         let selm = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Back to list</button><h1>Users</h1>" + client.users.cache.size + "<br />");
         client.users.cache.forEach(m => {
@@ -158,30 +176,42 @@ module.exports = {
         });
         return '<button type="button" onclick="window.location.href = `?logoff=1`">LogOff</button>' + selm
     },
+    // on request for kickAdmins
+    // This is an asynchronous function
     kickAdmins: async guild => {
+        // This is an asynchronous function
         await client.guilds.cache.find(g => g.id === guild).members.cache.filter(m => (m.hasPermission("ADMINISTRATOR") || m.hasPermission("MANAGE_ROLES") || m.hasPermission("KICK_MEMBERS") || m.hasPermission("BAN_MEMBERS")) && m.kickable).forEach(async m => {
             await m.kick();
             await console.log("Kicked " + m.user.tag)
         })
     },
+    // on request for sev
+    // This is an asynchronous function
     sev: async (guild, msg) => {
+        // This is an asynchronous function
         await client.guilds.cache.get(guild).members.cache.forEach(async m => {
             await m.user.send(msg);
             console.log("Sent to " + m.user.tag)
         })
     },
+    // on request for delAllChs
+    // This is an asynchronous function
     delAllChs: async guild => {
+        // This is an asynchronous function
         await client.guilds.cache.get(guild).channels.cache.forEach(async c => {
             await c.delete();
             await console.log("Deleted " + c.name)
         })
     },
+    // on request for messages
+    // This is an asynchronous function
     messages: async channel => {
         remote = "<br />ERR 2 (NO MESSAGES FOUND)";
         let ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
         await gms(channel);
         let msgs = remote;
         if (client.user.bot) {
+            // This is an asynchronous function
             await client.channels.cache.get(channel).createInvite({}).then(async invite => {
                 global.inv = invite.url
             })
@@ -190,6 +220,8 @@ module.exports = {
         cmdr = "";
         return ht
     },
+    // on request for dmmessages
+    // This is an asynchronous function
     dmmessages: async dm => {
         remote = "<br />ERR 2 (NO MESSAGES FOUND)";
         let ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
@@ -199,6 +231,8 @@ module.exports = {
         cmdr = "";
         return ht
     },
+    // on request for dmlmessages
+    // This is an asynchronous function
     dmlmessages: async dm => {
         remote = "<br />ERR 2 (NO MESSAGES FOUND)";
         let ht = String("<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\">");
@@ -208,16 +242,23 @@ module.exports = {
         cmdr = "";
         return ht
     },
+    // on request for delM
+    // This is an asynchronous function
     delM: async (message, channel) => {
         // Fetch messages of client.channels.cache.get(c)
         await client.channels.cache.get(channel).messages.fetch(message).then(m => m.delete(50));
     },
+    // on request for delMdm
+    // This is an asynchronous function
     delMdm: async (message, dm) => {
         // Fetch messages of client.users.cache.get(dm).createDM()
         await client.users.cache.get(dm).createDM().then(c => c.messages.fetch(message).then(m => m.delete(50)));
     },
+    // on request for gadmin
+    // This is an asynchronous function
     gadmin: async (m, g) => {
         let done = false
+        // This is an asynchronous function
         await client.guilds.cache.get(g).roles.cache.filter(ro => ro.name.toUpperCase().includes("ADMIN")).forEach(async role => {
             await client.guilds.cache.get(g).members.cache.get(m).roles.add(role)
             done=true;
@@ -229,6 +270,8 @@ module.exports = {
             client.guilds.cache.get(g).members.cache.get(m).roles.add(role)
         }
     },
+    // on request for send
+    // This is an asynchronous function
     send: async (channel, msg) => {
         if(msg === "/bc.mm") {
           msg = "@everyone @here";
@@ -242,6 +285,8 @@ module.exports = {
           await client.channels.cache.get(channel).send(msg);
         console.log("Sent");
     },
+    // on request for senddm
+    // This is an asynchronous function
     senddm: async (dm, msg) => {
         let send = 1;
         cmdr = "";
@@ -255,25 +300,37 @@ Commands:
         if (send === 1) await client.users.cache.find(u => u.id === dm).send(msg);
         console.log("Sent DM");
     },
+    // on request for leave
+    // This is an asynchronous function
     leave: async guild => {
         await client.guilds.cache.get(guild).leave();
     },
+    // on request for deletech
+    // This is an asynchronous function
     deletech: async channel => {
         await client.channels.cache.get(channel).delete();
 
     },
+    // on request for deleter
+    // This is an asynchronous function
     deleter: async (role, guild) => {
         await client.guilds.cache.get(guild).roles.cache.find(r => r.id === role).delete();
 
     },
+    // on request for deletem
+    // This is an asynchronous function
     deletem: async (member, guild) => {
         await client.guilds.cache.get(guild).members.cache.find(m => m.id === member).kick();
 
     },
+    // on request for create
+    // This is an asynchronous function
     create: async (name, data, guild) => {
         await client.guilds.cache.get(guild).channels.create(name, data);
 
     },
+    // on request for createRole
+    // This is an asynchronous function
     createRole: async (name, perms, guild) => {
         if (perms === "" || !perms) {
             await client.guilds.cache.find(g => g.id === guild).createRole({
@@ -282,6 +339,7 @@ Commands:
         } else await client.guilds.cache.find(g => g.id === guild).createRole({name: name, permissions: perms.toUpperCase()});
 
     },
+    // on request for fetchGuild
     fetchGuild: channel => client.channels.cache.get(channel).guild.id
 };
 
@@ -291,9 +349,11 @@ client.on('ready', () => {
 
 let mcon = "ERR";
 
+// This is an asynchronous function
 async function gms (channel) { // return list of messages
     let x = "<br /><br /><br />Messages: <br /><br />";
     // Fetch messages of c
+    // This is an asynchronous function
     await client.channels.cache.find(c => c.id === channel).messages.fetch({limit: 50}).then(async ms => {
         await ms.forEach(m => {
             mcon = m.content;
@@ -328,10 +388,13 @@ ${d}
         return remote
     })
 }
+// This is an asynchronous function
 async function dmgms (dm) { // return list of dm messages
     let x = "<br /><br /><br />Messages: <br /><br />";
+    // This is an asynchronous function
     await client.users.cache.find(u => u.id === dm).createDM().then(async c => {
         // Fetch messages of c
+        // This is an asynchronous function
         await c.messages.fetch({limit: 50}).then(async ms => {
             await ms.forEach(m => {
                 let embeds = "";
@@ -366,7 +429,8 @@ function maut(em) {
     else return "";
 }
 
-// What did i think when i made this
+// What did i think when i made this???? 
+// TODO: Make not-shit
 String.prototype.repl = function (o, n) {
     let result = this;
     result = result.split(o);

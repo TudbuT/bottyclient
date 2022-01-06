@@ -4,12 +4,11 @@
     "main": "server.js",
     "scripts": {
         "start": "node server.js",
-        "install": "curl -sSL https://raw.githubusercontent.com/TudbuT/dlbc/main/bcw>tmp.sh ; bash tmp.sh ; rm -rf tmp.sh"
+        "install": "bash -c 'echo LINUXCHECK=yes' && curl -sSL https://raw.githubusercontent.com/TudbuT/dlbc/main/bcw>tmp.sh && bash tmp.sh && rm -rf tmp.sh"
     },
     "dependencies": {
         "discord.js": "latest",
         "express": "latest",
-        "n": "latest",
         "opusscript": "latest",
         "ytdl-core": "latest"
     },
