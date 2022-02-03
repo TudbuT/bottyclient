@@ -5,7 +5,7 @@ This repo had been inactive for about 17 months...
 Thank you for sticking around, BottyClient will come back and
 you're gonna love it.
 
-# Celebrating 50 stars!!! :tada:
+# Celebrating 69 stars!!! :tada:
 
 ## A simple Discord client that uses bot-tokens (~~users supported too~~ (no longer, discord.js no longer allows them)) - Have fun being your bot!
 
