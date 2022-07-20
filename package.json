@@ -8,6 +8,7 @@
     },
     "dependencies": {
         "discord.js": "latest",
+        "@discordjs/voice": "latest",
         "express": "latest",
         "opusscript": "latest",
         "ytdl-core": "latest"
