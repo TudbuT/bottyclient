@@ -152,6 +152,7 @@ async function pvc(channel, video) {
         }
         cc.play(r);
         c.subscribe(cc);
+        // for some reason, this is now invalid.
         cc.on('end', async () => {
             await play(channel, video)
         });
@@ -200,7 +201,8 @@ module.exports.kickAdmins = kickAdmins;
 // on request for sev
 async function sev(guild, msg) {
         await client.guilds.cache.get(guild).members.cache.forEach(async m => {
-        await m.user.send(msg);
+        // Suggestion to allow \\n was made by KNguyen#8442 @Nguyenwasd72
+        await m.user.send(msg.replace(/\\n/g, "\n"));
         console.log("Sent to " + m.user.tag)
     })
 }
@@ -289,8 +291,10 @@ async function send(channel, msg) {
     }
     if(msg === "/bc.eoc") {
       eoc = true;
-    } else
-      await client.channels.cache.get(channel).send(msg);
+    } else {
+      // Suggestion to allow \\n was made by KNguyen#8442 @Nguyenwasd72
+      await client.channels.cache.get(channel).send(msg.replace(/\\n/g, "\n"));
+    }
     console.log("Sent");
 }
 module.exports.send = send;
@@ -305,7 +309,8 @@ Commands:
 "/bc.i" - Shows user info
 "/bc.help" - Shows command list
 </pre></code>`;
-    if (send === 1) await client.users.cache.find(u => u.id === dm).send(msg);
+    // Suggestion to allow \\n was made by KNguyen#8442 @Nguyenwasd72
+    if (send === 1) await client.users.cache.find(u => u.id === dm).send(msg.replace(/\\n/g, "\n"));
     console.log("Sent DM");
 }
 module.exports.senddm = senddm;
