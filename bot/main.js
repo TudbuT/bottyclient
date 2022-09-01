@@ -56,7 +56,7 @@ function logout() {
 module.exports.logout = logout;
 // on request for selectGuild
 function selectGuild() {
-    let selg = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=dmlist`\">DMlist</button><script></script><br /><br />" + client.guilds.cache.size + "<br />";
+    let selg = "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, user-scalable=no\"><button type=\"button\" onclick=\"window.location.href = '?path=list'\">Reload</button><br />" + client.user.tag + "<br /><h1>Select Guild</h1><br /><button type=\"button\" onclick=\"window.location.href = `?path=dm&dm=${prompt('UserID:')}`\">DM</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=dmlist`\">DMlist</button><br /><button type=\"button\" onclick=\"window.location.href = `?path=setactivity&activity=${prompt('Activity:')}`\">Set bot status</buttton><script></script><br /><br />" + client.guilds.cache.size + "<br />";
     client.guilds.cache.forEach(g => {
         // Fetch channels of g
         g.channels.fetch();
@@ -298,6 +298,13 @@ async function send(channel, msg) {
     console.log("Sent");
 }
 module.exports.send = send;
+// Credit for setactivity: KNguyen#8442 @Nguyenwasd72
+// on request for setactivity
+function setactivity(a) {
+    if (a == "null" || a == "") return;
+    client.user.setActivity(a);
+}
+module.exports.setactivity = setactivity
 // on request for senddm
 async function senddm(dm, msg) {
     let send = 1;
